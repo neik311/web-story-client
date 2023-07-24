@@ -1,0 +1,37 @@
+<form nz-form #frmAdd="ngForm">
+  <nz-row matDialogTitle>
+    <nz-col nzSpan="24" class="text-header mb-4">
+      {{ modalTitle | uppercase }}
+    </nz-col>
+  </nz-row>
+
+  <div matDialogContent>
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Tên danh mục</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24" nzErrorTip="Vui lòng nhập tên danh mục">
+            <input nz-input placeholder="Nhập tên danh mục" [(ngModel)]="dataObject.name" name="name" required />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Mô tả</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24">
+            <input nz-input placeholder="Nhập mô tả" [(ngModel)]="dataObject.description" name="description" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </div>
+
+  <nz-row matDialogActions>
+    <nz-col nzSpan="24" class="text-center">
+      <button nzShape="round" nz-button nzType="default" (click)="closeDialog(0)" class="mr-2"><span nz-icon nzType="lock"></span>Đóng</button>
+      <button nzShape="round" nz-button [disabled]="!frmAdd.form.valid" nzType="primary" (click)="onSave()">
+        <span nz-icon nzType="save"></span>Lưu
+      </button>
+    </nz-col>
+  </nz-row>
+</form>

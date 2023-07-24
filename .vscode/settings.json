@@ -1,0 +1,8 @@
+{
+  "js/ts.implicitProjectConfig.experimentalDecorators": true,
+  "editor.formatOnSave": true,
+  "debug.javascript.autoAttachFilter": "disabled",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "editor.tabSize": 2,
+  "prettier.printWidth": 150
+}

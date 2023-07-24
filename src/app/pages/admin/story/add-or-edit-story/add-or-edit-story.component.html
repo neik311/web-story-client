@@ -1,0 +1,92 @@
+<form nz-form #frmAdd="ngForm">
+  <nz-row matDialogTitle>
+    <nz-col nzSpan="24" class="text-header mb-4 text-center">
+      {{ modalTitle | uppercase }}
+    </nz-col>
+  </nz-row>
+
+  <div matDialogContent>
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Tên truyện</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24" nzErrorTip="Vui lòng nhập tên truyện">
+            <input nz-input placeholder="Nhập tên truyện" [(ngModel)]="dataObject.name" name="name" required />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Tên gọi khác</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24">
+            <input nz-input placeholder="Nhập tên gọi khác" [(ngModel)]="dataObject.otherName" name="otherName" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Tác giả</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24">
+            <input nz-input placeholder="Nhập tác giả" [(ngModel)]="dataObject.author" name="author" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Đã hoàn thành</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24">
+            <label nz-checkbox [(ngModel)]="dataObject.finished" name="finished"></label>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="16">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Nội dung</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24">
+            <textarea rows="3" nz-input placeholder="Nhập nội dung" [(ngModel)]="dataObject.content" name="content"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Danh mục</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24">
+            <nz-select
+              nzMode="multiple"
+              [(ngModel)]="dataObject.lstCategoryId"
+              name="lstCategoryId"
+              nzPlaceHolder="Chọn danh mục"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <nz-option *ngFor="let item of lstCategory" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Ảnh đại diện</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="22">
+            <input nz-input placeholder="Nhập hình ảnh" name="image" type="file" (change)="onChangeFile($event)" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <img *ngIf="dataObject.avatar?.length > 0" [src]="dataObject.avatar" alt="avatar" height="100" width="auto" />
+    </div>
+  </div>
+
+  <nz-row matDialogActions>
+    <nz-col nzSpan="24" class="text-center">
+      <button nzShape="round" nz-button nzType="default" (click)="closeDialog(0)" class="mr-2"><span nz-icon nzType="lock"></span>Đóng</button>
+      <button nzShape="round" nz-button [disabled]="!frmAdd.form.valid" nzType="primary" (click)="onSave()">
+        <span nz-icon nzType="save"></span>Lưu
+      </button>
+    </nz-col>
+  </nz-row>
+</form>

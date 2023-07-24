@@ -1,0 +1,34 @@
+<div class="parent clearfix">
+  <div class="bg-illustration">
+    <!-- <img src="https://img.lovepik.com/element/40092/7270.png_860.png" alt="logo" /> -->
+
+    <div class="burger-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <div class="login">
+    <div class="container">
+      <h1>Đăng nhập với<br />tài khoản của bạn</h1>
+
+      <div class="login-form">
+        <form action="">
+          <input type="email" placeholder="Email hoặc username" [(ngModel)]="username" name="username" />
+          <input type="password" placeholder="Mật khẩu" [(ngModel)]="password" name="password" />
+
+          <div class="remember-form">
+            <input type="checkbox" />
+            <span>Ghi nhớ tôi</span>
+          </div>
+          <div class="forget-pass">
+            <a href="#">Quên mật khẩu ?</a>
+          </div>
+
+          <button type="submit" (click)="onSubmit()">Đăng nhập</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<nz-header>
+  <ul nz-menu nzMode="horizontal" class="list-title">
+    <img src="assets/logo.png" alt="logo" (click)="navigate('home')" style="width: 50px; height: 50px; cursor: pointer" />
+    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
+      <a [routerLink]="['home']">Trang chủ</a>
+    </li>
+    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
+      <a [routerLink]="['find']">Lọc truyện</a>
+    </li>
+    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
+      <a [routerLink]="['favorite']">Yêu thích</a>
+    </li>
+    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
+      <a [routerLink]="['history']">Lịch sử</a>
+    </li>
+
+    <li nz-menu-item nzMatchRouter *ngIf="isAdmin() && !isUrlAdmin()">
+      <a [routerLink]="['admin/category']">Quản lý</a>
+    </li>
+    <li nz-menu-item nzMatchRouter *ngIf="isUrlAdmin()">
+      <a [routerLink]="['admin/category']">Danh mục</a>
+    </li>
+    <li nz-menu-item nzMatchRouter *ngIf="isUrlAdmin()">
+      <a [routerLink]="['admin/story']">Truyện</a>
+    </li>
+    <li nz-menu-item nzMatchRouter *ngIf="isUrlAdmin()">
+      <a [routerLink]="['admin/user']">Người dùng</a>
+    </li>
+
+    <li nz-menu-item nzMatchRouter *ngIf="!currentUser">
+      <a [routerLink]="['login']">Đăng nhập</a>
+    </li>
+
+    <input nz-input placeholder="search" nzSize="large" class="ant-input" [(ngModel)]="textSearch" />
+    <span nz-icon nzType="search" nzTheme="outline" class="search-icon ant-search"></span>
+    <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="menu-item">
+      <nz-avatar
+        class="avatar"
+        nzIcon="user"
+        nzSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsto7qNGOPFrDq674w5BQs4IikRohtq9Oa9er9pz0&s"
+      >
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu style="margin-top: 20px">
+            <li nz-menu-item class="text-username">
+              {{ currentUser?.username }}
+            </li>
+            <li nz-menu-item class="text-email">
+              {{ currentUser?.email }}
+            </li>
+            <li nz-menu-item>Profile</li>
+            <li nz-menu-item>Logout</li>
+          </ul>
+        </nz-dropdown-menu>
+      </nz-avatar>
+    </a>
+  </ul>
+</nz-header>

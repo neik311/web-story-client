@@ -1,0 +1,54 @@
+/* .layout { */
+/* min-height: 100vh; */
+nz-header {
+  background-color: #f2f2f2;
+}
+
+.list-title {
+  margin-left: 10px;
+  background-color: #f2f2f2;
+
+  nz-header {
+    position: fixed;
+    width: 100%;
+  }
+
+  [nz-menu] {
+    line-height: 64px;
+  }
+
+  nz-content {
+    padding: 0 50px;
+    margin-top: 64px;
+  }
+
+  nz-breadcrumb {
+    margin: 16px 0;
+  }
+
+  nz-footer {
+    text-align: center;
+  }
+  .menu-item {
+    margin-left: 100px;
+  }
+  .ant-input {
+    width: 500px;
+    margin: 0 8px 8px 0;
+    margin-left: 5%;
+  }
+  .ant-search {
+    position: absolute;
+    margin-left: -50px;
+    margin-top: 19px;
+    font-size: 23px;
+    color: black;
+  }
+}
+/* } */
+.text-username {
+  font-weight: 800 !important;
+}
+.text-email {
+  color: #565656;
+}
