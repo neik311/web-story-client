@@ -4,6 +4,21 @@
       <h1 class="text-center">{{ story.name }}</h1>
     </div>
   </nz-row>
+  <nz-collapse>
+    <nz-collapse-panel nzHeader="Tìm kiếm">
+      <nz-row nzGutter="8" class="mt-3">
+        <nz-col nzSpan="8">
+          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.isDeleted" name="isDeleted" nzPlaceHolder="Chọn trạng thái">
+            <nz-option *ngFor="let item of dataFilterStatus" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+          </nz-select>
+        </nz-col>
+
+        <nz-col nzSpan="24" class="text-center mt-3">
+          <button nzShape="round" nz-button (click)="loadData(true)" nzType="primary" nzGhost><span nz-icon nzType="search"></span>Tìm kiếm</button>
+        </nz-col>
+      </nz-row>
+    </nz-collapse-panel>
+  </nz-collapse>
   <nz-row class="mt-3">
     <button nzShape="round" class="mr-2" nz-button nzType="primary" (click)="clickAdd()"><span nz-icon nzType="plus"></span>Thêm mới</button>
   </nz-row>
@@ -25,7 +40,7 @@
           <td>{{ data.chapterNumber | number }}</td>
           <td>{{ data.name }}</td>
           <td>{{ data.viewCount | number }}</td>
-          <td>{{ data.createdAt | date : 'DD/mm/yy' }}</td>
+          <td>{{ data.createdAt | date : 'dd/MM/yyyy' }}</td>
           <td class="text-center" nzRight>
             <nz-tag class="tag-status" [nzColor]="'red'" *ngIf="data.isDeleted"> Ngưng hoạt động</nz-tag>
             <nz-tag class="tag-status" [nzColor]="'green'" *ngIf="!data.isDeleted">Đang hoạt động</nz-tag>

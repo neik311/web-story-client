@@ -13,7 +13,7 @@ export class AddOrEditStoryComponent implements OnInit {
     name: null,
     otherName: null,
     author: null,
-    finished: null,
+    finished: false,
     content: null,
     lstCategoryId: [],
   }

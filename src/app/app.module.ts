@@ -26,7 +26,13 @@ import { NzListModule } from 'ng-zorro-antd/list'
 import { NzMenuModule } from 'ng-zorro-antd/menu'
 import { NzProgressModule } from 'ng-zorro-antd/progress'
 import { NzTagModule } from 'ng-zorro-antd/tag'
-
+import { CardModule } from 'primeng/card'
+import { CarouselModule } from 'primeng/carousel'
+import { TagModule } from 'primeng/tag'
+import { ButtonModule } from 'primeng/button'
+import { NzPaginationModule } from 'ng-zorro-antd/pagination'
+import { NzTabsModule } from 'ng-zorro-antd/tabs'
+import { NzTableModule } from 'ng-zorro-antd/table'
 import { AngularFireModule } from '@angular/fire/compat'
 import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 
@@ -43,6 +49,7 @@ import { FooterComponent } from './components/footer/footer.component'
 import { HomeComponent } from './pages/home/home.component'
 import { LoginComponent } from './pages/login/login.component'
 import { environment } from '../environments/environment'
+import { StoryComponent } from './pages/story/story.component'
 
 const antDesignIcons = AllIcons as { [key: string]: IconDefinition }
 const icons: IconDefinition[] = Object.keys(antDesignIcons).map((key: string) => antDesignIcons[key])
@@ -56,7 +63,7 @@ registerLocaleData(vi)
 export class MaterialModule {}
 
 @NgModule({
-  declarations: [AppComponent, AdminLayoutComponent, HeaderComponent, FooterComponent, HomeComponent, LoginComponent],
+  declarations: [AppComponent, AdminLayoutComponent, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, StoryComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -82,6 +89,13 @@ export class MaterialModule {}
     NzIconModule.forRoot(icons),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
+    CardModule,
+    CarouselModule,
+    TagModule,
+    ButtonModule,
+    NzPaginationModule,
+    NzTabsModule,
+    NzTableModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: vi_VN },

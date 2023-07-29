@@ -1,0 +1,62 @@
+<div class="main">
+  <nz-card style="width: 80%; margin-left: auto; margin-right: auto">
+    <h1 style="text-align: center">{{ story.name }}</h1>
+    <div class="story-detail">
+      <div class="img-avatar">
+        <img [src]="story.avatar" alt="" style="width: 60%; margin-left: 35%" />
+      </div>
+      <div class="content-story">
+        <div style="font-size: 17px; color: rgb(78, 78, 78)">
+          <p>Tác giả : {{ story.author ? story.author : 'Đang cập nhật' }}</p>
+          <p>Tình trạng : {{ story.finished ? 'Đã kết thúc' : 'Đang tiến hành' }}</p>
+          <p>Thể loại : {{ story.typeName }}</p>
+          <p>Danh mục : {{ story.lstCategoryName?.join(', ') }}</p>
+          <p>Lượt xem : {{ story.totalView | number }}</p>
+          <p>Lượt thích : {{ story.favoriteCount | number }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="other-story">
+      <nz-tabset>
+        <nz-tab [nzTitle]="titleTemplate">
+          <ng-template #titleTemplate>
+            <span nz-icon nzType="book"></span>
+            Nội dung
+          </ng-template>
+          {{ story.content }}
+        </nz-tab>
+        <nz-tab [nzTitle]="titleTemplate1">
+          <ng-template #titleTemplate1>
+            <span nz-icon nzType="group"></span>
+            Danh sách chương
+          </ng-template>
+          <nz-table #basicTable [nzData]="lstChapter" [nzFrontPagination]="false">
+            <thead>
+              <tr>
+                <th class="header-chapter">Số chương</th>
+                <th class="header-chapter">Tên</th>
+                <th class="header-chapter">Ngày cập nhật</th>
+                <th class="header-chapter">Lượt xem</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td align="center" style="cursor: pointer">{{ data.chapterNumber }}</td>
+                <td align="center" style="cursor: pointer">{{ data.name }}</td>
+                <td align="center" style="cursor: pointer">{{ (data.updatedAt ? data.updatedAt : data.createdAt) | date : 'dd/MM/yyyy' }}</td>
+                <td align="center" style="cursor: pointer">{{ data.viewCount }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </nz-tab>
+        <nz-tab [nzTitle]="titleTemplate2">
+          <ng-template #titleTemplate2>
+            <span nz-icon nzType="comment"></span>
+            Bình luận
+          </ng-template>
+          chapter
+        </nz-tab>
+      </nz-tabset>
+    </div>
+  </nz-card>
+</div>

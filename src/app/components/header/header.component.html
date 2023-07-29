@@ -1,6 +1,7 @@
-<nz-header>
+<!-- <nz-header> -->
+<div class="main-header">
   <ul nz-menu nzMode="horizontal" class="list-title">
-    <img src="assets/logo.png" alt="logo" (click)="navigate('home')" style="width: 50px; height: 50px; cursor: pointer" />
+    <img src="assets/logo.png" alt="logo" (click)="navigate('home')" style="width: 50px; height: 50px; cursor: pointer; margin-left: 50px" />
     <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
       <a [routerLink]="['home']">Trang chủ</a>
     </li>
@@ -54,4 +55,5 @@
       </nz-avatar>
     </a>
   </ul>
-</nz-header>
+</div>
+<!-- </nz-header> -->

@@ -1,3 +1,48 @@
-<p>
-  add-or-edit-chapter works!
-</p>
+<form nz-form #frmAdd="ngForm">
+  <nz-row matDialogTitle>
+    <nz-col nzSpan="24" class="text-header mb-4 text-center">
+      {{ modalTitle | uppercase }}
+    </nz-col>
+  </nz-row>
+
+  <div matDialogContent>
+    <div nz-row>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Số thứ tự chapter</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24" nzErrorTip="Vui lòng nhập STT chapter">
+            <input nz-input placeholder="Nhập số thứ tự chapter" [(ngModel)]="dataObject.chapterNumber" name="chapterNumber" required />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Tên chapter</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24">
+            <input nz-input placeholder="Nhập tên chapter" [(ngModel)]="dataObject.name" name="name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Nội dung</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24" nzErrorTip="Vui lòng nhập nội dung">
+            <textarea rows="15" nz-input placeholder="Nhập nội dung" [(ngModel)]="dataObject.content" name="content" required> </textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+  </div>
+
+  <nz-row matDialogActions>
+    <nz-col nzSpan="24" class="text-center">
+      <button nzShape="round" nz-button nzType="default" (click)="closeDialog(0)" class="mr-2"><span nz-icon nzType="lock"></span>Đóng</button>
+      <button nzShape="round" nz-button [disabled]="!frmAdd.form.valid" nzType="primary" (click)="onSave()">
+        <span nz-icon nzType="save"></span>Lưu
+      </button>
+    </nz-col>
+  </nz-row>
+</form>

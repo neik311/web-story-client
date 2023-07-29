@@ -4,6 +4,7 @@ import { AuthGuard } from './_helpers/auth.guard'
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component'
 import { LoginComponent } from './pages/login/login.component'
 import { HomeComponent } from './pages/home/home.component'
+import { StoryComponent } from './pages/story/story.component'
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -14,6 +15,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'story/:id',
+    component: StoryComponent,
   },
   {
     path: 'home',
