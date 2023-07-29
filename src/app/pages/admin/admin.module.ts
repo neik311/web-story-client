@@ -29,6 +29,16 @@ import { NgxPrintModule } from 'ngx-print'
 import { MaterialModule } from '../../app.module'
 import { NzSwitchModule } from 'ng-zorro-antd/switch'
 import { NzCardModule } from 'ng-zorro-antd/card'
+import {
+  RichTextEditorModule,
+  ToolbarService,
+  TableService,
+  QuickToolbarService,
+  LinkService,
+  ImageService,
+  HtmlEditorService,
+  MarkdownEditorService,
+} from '@syncfusion/ej2-angular-richtexteditor'
 
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown'
 import { AdminRoutingModule } from './admin-routing.module'
@@ -75,7 +85,9 @@ import { AddOrEditChapterComponent } from './chapter/add-or-edit-chapter/add-or-
     NzSwitchModule,
     NzDropDownModule,
     NzCardModule,
+    RichTextEditorModule,
   ],
+  providers: [ToolbarService, LinkService, ImageService, HtmlEditorService, TableService, QuickToolbarService, MarkdownEditorService],
   // providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

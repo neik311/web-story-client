@@ -29,8 +29,8 @@
       <div nz-col [nzSpan]="24">
         <nz-form-item nzFlex>
           <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Nội dung</nz-form-label>
-          <nz-form-control [nzSm]="22" [nzXs]="24" nzErrorTip="Vui lòng nhập nội dung">
-            <textarea rows="15" nz-input placeholder="Nhập nội dung" [(ngModel)]="dataObject.content" name="content" required> </textarea>
+          <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="Vui lòng nhập nội dung">
+            <ejs-richtexteditor #exampleRTE [toolbarSettings]="customToolbar" [iframeSettings]="iframe" [height]="height"> </ejs-richtexteditor>
           </nz-form-control>
         </nz-form-item>
       </div>

@@ -1,20 +1,67 @@
-import { Component, Inject, OnInit, Optional } from '@angular/core'
+import { AfterViewInit, Component, Inject, OnInit, Optional, ViewChild } from '@angular/core'
 import { AngularFireStorage } from '@angular/fire/compat/storage'
-import { ApiService, NotifyService } from '../../../../services'
+import { RichTextEditorComponent } from '@syncfusion/ej2-angular-richtexteditor'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { ApiService, NotifyService } from '../../../../services'
 import { enumData } from '../../../../core/enumData'
 
 @Component({
   selector: 'app-add-or-edit-chapter',
   templateUrl: './add-or-edit-chapter.component.html',
 })
-export class AddOrEditChapterComponent implements OnInit {
+export class AddOrEditChapterComponent implements OnInit, AfterViewInit {
   dataObject: any = {
     chapterNumber: null,
     name: null,
-    content: null,
+    content: '<p></p>',
     storyId: null,
   }
+  public customToolbar: Object = {
+    items: [
+      'Undo',
+      'Redo',
+      '|',
+      'Bold',
+      'Italic',
+      'Underline',
+      'StrikeThrough',
+      '|',
+      'FontName',
+      'FontSize',
+      'FontColor',
+      'BackgroundColor',
+      '|',
+      'SubScript',
+      'SuperScript',
+      '|',
+      'LowerCase',
+      'UpperCase',
+      '|',
+      'Formats',
+      'Alignments',
+      '|',
+      'OrderedList',
+      'UnorderedList',
+      '|',
+      'Indent',
+      'Outdent',
+      '|',
+      'CreateLink',
+      'Image',
+      '|',
+      'ClearFormat',
+      'Print',
+      'SourceCode',
+      '|',
+      'FullScreen',
+    ],
+  }
+  public height: number = 800
+  public iframe: object = { enable: true }
+  public mode: string = 'Markdown'
+  @ViewChild('exampleRTE')
+  public componentObject!: RichTextEditorComponent
+
   isCreate = true
   modalTitle = 'Thêm mới chapter'
 
@@ -35,8 +82,12 @@ export class AddOrEditChapterComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit() {
+    this.componentObject.value = this.dataObject.content
+  }
   async onSave() {
-    // console.log(this.dataObject)
+    this.dataObject.content = this.componentObject.getHtml()
+    // console.log(this.componentObject.getHtml())
     this.notifyService.showloading()
     if (this.isCreate === false) {
       this.updateData()
