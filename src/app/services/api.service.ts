@@ -29,11 +29,31 @@ export class ApiService {
 
   CHAPTER = {
     GET_CHAPTER_BY_STORY: `${environment.apiUrl}/chapter/get_chapter_by_story`,
+    GET_CHAPTER_BY_Id: `${environment.apiUrl}/chapter/get_chapter_by_id`,
     CREATE: `${environment.apiUrl}/chapter/create_data`,
     DELETE: `${environment.apiUrl}/chapter/update_active`,
     UPDATE: `${environment.apiUrl}/chapter/update_data`,
     PAGINATION: `${environment.apiUrl}/chapter/pagination`,
     PLUS_VIEW: `${environment.apiUrl}/chapter/plus_view_chapter`,
+  }
+
+  FAVORITE = {
+    GET_BY_USER: `${environment.apiUrl}/favorite/get_all`,
+    CREATE: `${environment.apiUrl}/favorite/create_data`,
+    DELETE: `${environment.apiUrl}/favorite/update_active`,
+  }
+
+  HISTORY = {
+    GET_BY_USER: `${environment.apiUrl}/history/get_all`,
+    CREATE: `${environment.apiUrl}/history/create_data`,
+    DELETE: `${environment.apiUrl}/history/update_active`,
+  }
+
+  COMMENT = {
+    CREATE: `${environment.apiUrl}/comment/create_data`,
+    DELETE: `${environment.apiUrl}/comment/update_active`,
+    UPDATE: `${environment.apiUrl}/comment/update_data`,
+    PAGINATION: `${environment.apiUrl}/comment/pagination`,
   }
 
   //#endregion

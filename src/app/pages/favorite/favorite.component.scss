@@ -2,58 +2,6 @@
   background-color: azure;
 }
 
-.content {
-  width: 80%;
-}
-
-.logo {
-  width: 120px;
-  height: 31px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 16px 24px 16px 0;
-  float: left;
-}
-
-[nz-menu] {
-  line-height: 64px;
-}
-
-nz-breadcrumb {
-  margin: 16px 0;
-}
-
-nz-content {
-  padding: 0 50px;
-}
-
-nz-footer {
-  text-align: center;
-}
-
-.inner-content {
-  background: #fff;
-  padding: 24px;
-  min-height: 280px;
-}
-
-.product-item {
-  .product-item-content {
-    border: 1px solid var(--surface-d);
-    border-radius: 3px;
-    margin: 0.3rem;
-    text-align: center;
-    padding: 0.5rem 0;
-  }
-
-  .product-image {
-    border-radius: 16px;
-    width: 100px;
-    height: 150px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    cursor: pointer;
-  }
-}
-
 .list-item {
   width: 100%;
   text-align: center;
@@ -90,13 +38,12 @@ div.border-text {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   height: auto;
-  width: 90%;
+  width: 80%;
   background-color: transparent;
-  padding: 10px 5px 0px 5px;
+  padding: 10px 20px 0px 20px;
   position: absolute;
   left: 50%;
-  top: 70%;
-  // bottom: 10px !important;
+  top: 80%;
   transform: translate(-50%, -50%);
   color: white;
 }

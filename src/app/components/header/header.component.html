@@ -8,7 +8,7 @@
     <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
       <a [routerLink]="['find']">Lọc truyện</a>
     </li>
-    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
+    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()" (click)="navigate('favorite')">
       <a [routerLink]="['favorite']">Yêu thích</a>
     </li>
     <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">

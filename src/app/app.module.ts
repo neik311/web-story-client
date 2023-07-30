@@ -35,6 +35,8 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs'
 import { NzTableModule } from 'ng-zorro-antd/table'
 import { AngularFireModule } from '@angular/fire/compat'
 import { AngularFireStorageModule } from '@angular/fire/compat/storage'
+import { NzSelectModule } from 'ng-zorro-antd/select'
+import { NzCommentModule } from 'ng-zorro-antd/comment'
 
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor'
@@ -50,6 +52,9 @@ import { HomeComponent } from './pages/home/home.component'
 import { LoginComponent } from './pages/login/login.component'
 import { environment } from '../environments/environment'
 import { StoryComponent } from './pages/story/story.component'
+import { ReadComponent } from './pages/read/read.component'
+import { FavoriteComponent } from './pages/favorite/favorite.component'
+import { HistoryComponent } from './pages/history/history.component'
 
 const antDesignIcons = AllIcons as { [key: string]: IconDefinition }
 const icons: IconDefinition[] = Object.keys(antDesignIcons).map((key: string) => antDesignIcons[key])
@@ -63,7 +68,18 @@ registerLocaleData(vi)
 export class MaterialModule {}
 
 @NgModule({
-  declarations: [AppComponent, AdminLayoutComponent, HeaderComponent, FooterComponent, HomeComponent, LoginComponent, StoryComponent],
+  declarations: [
+    AppComponent,
+    AdminLayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    HomeComponent,
+    LoginComponent,
+    StoryComponent,
+    ReadComponent,
+    FavoriteComponent,
+    HistoryComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -96,6 +112,8 @@ export class MaterialModule {}
     NzPaginationModule,
     NzTabsModule,
     NzTableModule,
+    NzSelectModule,
+    NzCommentModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: vi_VN },

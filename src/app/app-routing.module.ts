@@ -5,6 +5,9 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { LoginComponent } from './pages/login/login.component'
 import { HomeComponent } from './pages/home/home.component'
 import { StoryComponent } from './pages/story/story.component'
+import { ReadComponent } from './pages/read/read.component'
+import { FavoriteComponent } from './pages/favorite/favorite.component'
+import { HistoryComponent } from './pages/history/history.component'
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -19,6 +22,18 @@ const routes: Routes = [
   {
     path: 'story/:id',
     component: StoryComponent,
+  },
+  {
+    path: 'read/:storyId/:chapterId',
+    component: ReadComponent,
+  },
+  {
+    path: 'favorite',
+    component: FavoriteComponent,
+  },
+  {
+    path: 'history',
+    component: HistoryComponent,
   },
   {
     path: 'home',

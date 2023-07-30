@@ -13,7 +13,7 @@ export class AddOrEditChapterComponent implements OnInit, AfterViewInit {
   dataObject: any = {
     chapterNumber: null,
     name: null,
-    content: '<p></p>',
+    content: '',
     storyId: null,
   }
   public customToolbar: Object = {
