@@ -84,7 +84,6 @@ export class AddOrEditStoryComponent implements OnInit {
   }
 
   onChangeFile(e: any) {
-    console.log(e.target.files[0])
     this.avatarImage = e.target.files[0]
     const files = e.target.files
     if (files.length === 0) return

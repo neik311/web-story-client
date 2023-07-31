@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { ActivatedRoute } from '@angular/router'
 import { ApiService, AuthenticationService, CoreService, NotifyService } from '../../services'
+import { enumData } from '../../core/enumData'
 @Component({
   selector: 'app-read',
   templateUrl: './read.component.html',
@@ -12,6 +13,7 @@ export class ReadComponent implements OnInit {
   storyId: string = ''
   selectedChapter: string = ''
   lstChapter: any[] = []
+  lstImage: any[] = []
   chapter: any = {}
 
   constructor(private route: ActivatedRoute, private router: Router, private authService: AuthenticationService, private apiService: ApiService) {}
@@ -33,6 +35,7 @@ export class ReadComponent implements OnInit {
     this.apiService.post(this.apiService.CHAPTER.GET_CHAPTER_BY_Id, { id: this.chapterId }).then((res: any) => {
       this.chapter = res
       this.lstChapter = res.lstChapter
+      if (this.chapter.storyType === enumData.StoryType.comic.code) this.lstImage = this.chapter.content.split(', ')
       this.router.navigate([`read/${this.storyId}/${this.chapterId}`])
     })
   }

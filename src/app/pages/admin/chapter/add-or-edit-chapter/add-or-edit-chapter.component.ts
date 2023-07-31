@@ -62,6 +62,8 @@ export class AddOrEditChapterComponent implements OnInit, AfterViewInit {
   @ViewChild('exampleRTE')
   public componentObject!: RichTextEditorComponent
 
+  lstImageFile: any[] = []
+  lstImage: any[] = []
   isCreate = true
   modalTitle = 'Thêm mới chapter'
 
@@ -77,18 +79,30 @@ export class AddOrEditChapterComponent implements OnInit, AfterViewInit {
     this.dataObject.storyId = this.data.storyId
     if (this.data && this.data.id) {
       this.dataObject = { ...this.data }
+      if (this.dataObject.type === enumData.StoryType.comic.code) {
+        this.lstImage = this.dataObject.content.split(', ')
+      }
       this.isCreate = false
       this.modalTitle = 'Chỉnh sửa chapter'
     }
   }
 
   ngAfterViewInit() {
-    this.componentObject.value = this.dataObject.content
+    if (this.data.type === enumData.StoryType.word.code) this.componentObject.value = this.dataObject.content
   }
   async onSave() {
-    this.dataObject.content = this.componentObject.getHtml()
-    // console.log(this.componentObject.getHtml())
     this.notifyService.showloading()
+    const length = this.lstImageFile.length
+    if (this.data.type === enumData.StoryType.word.code) this.dataObject.content = this.componentObject.getHtml()
+    else if (length > 0) {
+      const lstTask: any[] = []
+      for (let i = 0; i < length; i++) {
+        lstTask.push(this.uploadImageToFirebase(this.lstImageFile[i], i))
+      }
+      const res = await Promise.all(lstTask)
+      this.dataObject.content = res.join(', ')
+    }
+    // console.log(this.componentObject.getHtml())
     if (this.isCreate === false) {
       this.updateData()
       return
@@ -116,5 +130,34 @@ export class AddOrEditChapterComponent implements OnInit, AfterViewInit {
 
   closeDialog(flag: any) {
     this.dialogRef.close(flag)
+  }
+
+  onChangeFile(e: any) {
+    console.log(e.target.files)
+    const files = e.target.files
+    this.lstImageFile = files
+    if (files.length === 0) return
+
+    const mimeType = files[0].type
+    if (mimeType.match(/image\/*/) == null) {
+      return
+    }
+    const lstImage: any[] = []
+    for (let imageFle of files) {
+      const reader = new FileReader()
+      reader.readAsDataURL(imageFle)
+      reader.onload = (_event) => {
+        lstImage.push(reader.result)
+      }
+    }
+    this.lstImage = lstImage
+  }
+
+  async uploadImageToFirebase(file: any, fileName: number) {
+    if (!file) return null
+    const path = `data/${this.data.storyName}/${this.dataObject.chapterNumber}/${fileName.toString()}`
+    const uploadTask = await this.fireStorage.upload(path, file)
+    const url = await uploadTask.ref.getDownloadURL()
+    return url
   }
 }

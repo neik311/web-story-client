@@ -1,3 +1,4 @@
+import { NzAvatarModule } from 'ng-zorro-antd/avatar'
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { ActivatedRoute } from '@angular/router'
@@ -71,7 +72,7 @@ export class ChapterComponent implements OnInit {
 
   clickAdd() {
     this.dialog
-      .open(AddOrEditChapterComponent, { disableClose: false, data: { storyId: this.storyId } })
+      .open(AddOrEditChapterComponent, { disableClose: false, data: { storyId: this.storyId, type: this.story.type, storyName: this.story.name } })
       .afterClosed()
       .subscribe((res: any) => {
         if (res) {
@@ -82,7 +83,10 @@ export class ChapterComponent implements OnInit {
 
   clickEdit(object: any) {
     this.dialog
-      .open(AddOrEditChapterComponent, { disableClose: false, data: { ...object, storyId: this.storyId } })
+      .open(AddOrEditChapterComponent, {
+        disableClose: false,
+        data: { ...object, storyId: this.storyId, type: this.story.type, storyName: this.story.name },
+      })
       .afterClosed()
       .subscribe((res: any) => {
         if (res) this.loadData()
