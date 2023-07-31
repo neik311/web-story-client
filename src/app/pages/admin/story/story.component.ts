@@ -54,8 +54,12 @@ export class StoryComponent implements OnInit {
 
   clickDetail(data: any) {}
 
-  navigateToChapter(data: any) {
-    this.router.navigate([`admin/chapter/${data.id}`])
+  navigateToChapter(storyId: string) {
+    this.router.navigate([`admin/chapter/${storyId}`])
+  }
+
+  navigateToComment(storyId: string) {
+    this.router.navigate([`admin/comment/${storyId}`])
   }
   // loadDataSelectBox() {
   //   this.apiService.post(this.apiService..DATA_SELECT, {}).then((res: any) => {

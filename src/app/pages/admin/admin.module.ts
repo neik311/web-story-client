@@ -39,6 +39,7 @@ import {
   HtmlEditorService,
   MarkdownEditorService,
 } from '@syncfusion/ej2-angular-richtexteditor'
+import { NzAvatarModule } from 'ng-zorro-antd/avatar'
 
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown'
 import { AdminRoutingModule } from './admin-routing.module'
@@ -48,9 +49,18 @@ import { StoryComponent } from './story/story.component'
 import { AddOrEditStoryComponent } from './story/add-or-edit-story/add-or-edit-story.component'
 import { ChapterComponent } from './chapter/chapter.component'
 import { AddOrEditChapterComponent } from './chapter/add-or-edit-chapter/add-or-edit-chapter.component'
+import { CommentComponent } from './comment/comment.component'
 
 @NgModule({
-  declarations: [CategoryComponent, AddOrEditCategoryComponent, StoryComponent, AddOrEditStoryComponent, ChapterComponent, AddOrEditChapterComponent],
+  declarations: [
+    CategoryComponent,
+    AddOrEditCategoryComponent,
+    StoryComponent,
+    AddOrEditStoryComponent,
+    ChapterComponent,
+    AddOrEditChapterComponent,
+    CommentComponent,
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -86,6 +96,7 @@ import { AddOrEditChapterComponent } from './chapter/add-or-edit-chapter/add-or-
     NzDropDownModule,
     NzCardModule,
     RichTextEditorModule,
+    NzAvatarModule,
   ],
   providers: [ToolbarService, LinkService, ImageService, HtmlEditorService, TableService, QuickToolbarService, MarkdownEditorService],
   // providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],

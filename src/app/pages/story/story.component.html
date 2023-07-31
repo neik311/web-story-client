@@ -112,7 +112,12 @@
 
                 <ng-container *ngIf="item.__children__ && item.__children__.length">
                   <ng-template ngFor let-child [ngForOf]="item.__children__">
-                    <nz-comment [nzAuthor]="child.username" [nzDatetime]="formatDate(child.createdAt)" style="margin-top: -10px">
+                    <nz-comment
+                      *ngIf="!child.isDeleted"
+                      [nzAuthor]="child.username"
+                      [nzDatetime]="formatDate(child.createdAt)"
+                      style="margin-top: -10px"
+                    >
                       <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="child.userAvatar"></nz-avatar>
                       <nz-comment-content>
                         <p>{{ child.content }}</p>
