@@ -41,4 +41,10 @@ export const enumData = {
     Admin: { code: 'admin', name: 'Quản trị viên' },
     Owner: { code: 'owner', name: 'Chủ sở hữu' },
   },
+
+  /** Kiểu truyện */
+  StoryType: {
+    word: { code: 'word', name: 'Truyện chữ' },
+    comic: { code: 'comic', name: 'Truyện tranh' },
+  },
 }

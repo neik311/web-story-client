@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core'
 import { AngularFireStorage } from '@angular/fire/compat/storage'
-import { ApiService, NotifyService } from '../../../../services'
+import { ApiService, CoreService, NotifyService } from '../../../../services'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { enumData } from '../../../../core/enumData'
 
@@ -19,7 +19,8 @@ export class AddOrEditStoryComponent implements OnInit {
   }
   avatarImage: any = ''
   isCreate = true
-  lstCategory: any = []
+  lstCategory: any[] = []
+  lstStoryType: any[] = []
   modalTitle = 'Thêm mới truyện'
 
   constructor(
@@ -27,10 +28,12 @@ export class AddOrEditStoryComponent implements OnInit {
     private apiService: ApiService,
     private dialogRef: MatDialogRef<AddOrEditStoryComponent>,
     private fireStorage: AngularFireStorage,
+    private coreService: CoreService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit() {
+    this.lstStoryType = this.coreService.convertObjToArray(enumData.StoryType)
     this.loadDataSelectBox()
     if (this.data && this.data.id) {
       this.dataObject = { ...this.data }

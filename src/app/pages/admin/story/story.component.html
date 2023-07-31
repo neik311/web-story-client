@@ -37,6 +37,7 @@
         <tr>
           <th nzLeft style="width: 100px">Ảnh đại diện</th>
           <th nzLeft style="width: 300px">Tên truyện</th>
+          <th>Loại truyện</th>
           <th>Tên khác</th>
           <th>Tác giả</th>
           <th style="width: 500px">Nội dung</th>
@@ -54,6 +55,7 @@
             <img [src]="data.avatar" alt="avatar" style="height: 100px" />
           </td>
           <td nzLeft>{{ data.name }}</td>
+          <td>{{ data.typeName }}</td>
           <td>{{ data.otherName }}</td>
           <td>{{ data.author }}</td>
           <td>{{ data.content | slice : 0 : 130 }}{{ data.content.length > 130 ? '...' : '' }}</td>
