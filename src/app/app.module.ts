@@ -55,6 +55,8 @@ import { StoryComponent } from './pages/story/story.component'
 import { ReadComponent } from './pages/read/read.component'
 import { FavoriteComponent } from './pages/favorite/favorite.component'
 import { HistoryComponent } from './pages/history/history.component'
+import { RegisterComponent } from './pages/register/register.component'
+import { FirebaseUpload } from './_helpers/firebaseUpload'
 
 const antDesignIcons = AllIcons as { [key: string]: IconDefinition }
 const icons: IconDefinition[] = Object.keys(antDesignIcons).map((key: string) => antDesignIcons[key])
@@ -79,6 +81,7 @@ export class MaterialModule {}
     ReadComponent,
     FavoriteComponent,
     HistoryComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -124,6 +127,7 @@ export class MaterialModule {}
     ApiService,
     AuthenticationService,
     CoreService,
+    FirebaseUpload,
   ],
   bootstrap: [AppComponent],
 })

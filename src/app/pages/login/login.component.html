@@ -18,15 +18,18 @@
           <input type="email" placeholder="Email hoặc username" [(ngModel)]="username" name="username" />
           <input type="password" placeholder="Mật khẩu" [(ngModel)]="password" name="password" />
 
-          <div class="remember-form">
+          <!-- <div class="remember-form">
             <input type="checkbox" />
             <span>Ghi nhớ tôi</span>
-          </div>
+          </div> -->
           <div class="forget-pass">
             <a href="#">Quên mật khẩu ?</a>
           </div>
+          <div class="register">
+            <a href="/register">Đăng ký</a>
+          </div>
 
-          <button type="submit" (click)="onSubmit()">Đăng nhập</button>
+          <button type="submit" [disabled]="!username || !password" (click)="onSubmit()">Đăng nhập</button>
         </form>
       </div>
     </div>

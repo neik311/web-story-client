@@ -119,7 +119,7 @@ img {
   font-weight: bolder;
 }
 .login .container .login-form {
-  margin-top: 112px;
+  margin-top: 30px;
 }
 .login .container .login-form form {
   display: -ms-grid;
@@ -140,7 +140,8 @@ img {
   background: -o-linear-gradient(110deg, #f794a4 0%, #fdd6bd 100%);
   background: linear-gradient(-20deg, #f794a4 0%, #fdd6bd 100%);
   border: none;
-  margin-top: 124px;
+  margin-top: 84px;
+  cursor: pointer;
   margin-bottom: 20px;
   width: 241px;
   height: 58px;
@@ -190,7 +191,7 @@ img {
 }
 .login .container .forget-pass {
   position: absolute;
-  right: 0;
+  right: 10;
   margin-top: 189px;
 }
 .login .container .forget-pass a {
@@ -199,6 +200,19 @@ img {
   font-weight: normal;
   color: #918f8f;
 }
+
+.login .container .register {
+  position: absolute;
+  right: 0;
+  margin-top: 189px;
+}
+.login .container .register a {
+  font-size: 16px;
+  position: relative;
+  font-weight: normal;
+  color: #918f8f;
+}
+
 .login .container .forget-pass a::after {
   content: '';
   position: absolute;

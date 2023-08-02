@@ -8,6 +8,7 @@ import { StoryComponent } from './pages/story/story.component'
 import { ReadComponent } from './pages/read/read.component'
 import { FavoriteComponent } from './pages/favorite/favorite.component'
 import { HistoryComponent } from './pages/history/history.component'
+import { RegisterComponent } from './pages/register/register.component'
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
   },
   {
     path: 'story/:id',

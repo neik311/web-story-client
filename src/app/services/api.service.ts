@@ -10,6 +10,8 @@ export class ApiService {
   AUTH = {
     LOGIN: `${environment.apiUrl}/auth/login`,
     REGISTER: `${environment.apiUrl}/auth/register`,
+    GET_INFO: `${environment.apiUrl}/auth/get_info_user`,
+    VERIFY: `${environment.apiUrl}/auth/verify`,
   }
   CATEGORY = {
     FIND: `${environment.apiUrl}/category/find`,

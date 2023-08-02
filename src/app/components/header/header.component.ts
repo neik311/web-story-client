@@ -24,11 +24,27 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([link])
   }
 
+  handleLogout() {
+    this.authService.logout()
+  }
+
   isAdmin(): boolean {
     return this.currentUser?.roleCode === enumData.Role.Admin.code
   }
 
   isUrlAdmin(): boolean {
     return window.location.href.includes('admin')
+  }
+
+  getUsername(): string {
+    return this.authService.currentUserValue?.username
+  }
+
+  getEmail(): string {
+    return this.authService.currentUserValue?.email
+  }
+
+  getAvatar(): string {
+    return this.authService.currentUserValue?.avatar || 'https://i.pinimg.com/originals/c6/e5/65/c6e56503cfdd87da299f72dc416023d4.jpg'
   }
 }

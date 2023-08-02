@@ -16,9 +16,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (err.status === 401) {
           if (err.error.message === 'Unauthorized' || err.statusText === 'Unauthorized') {
             this.authenticationService.logout()
-            if (err.url && err.url !== `${environment.apiUrl}/auth/login`) {
-              location.reload()
-            }
+            this.notifyService.showWarning('Bạn hiện chưa đăng nhập, vui lòng đăng nhập để tiếp tục')
+            return throwError(() => new Error(error))
           }
         }
 
