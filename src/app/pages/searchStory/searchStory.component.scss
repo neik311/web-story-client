@@ -1,0 +1,102 @@
+.main {
+  background-color: azure;
+}
+
+.content {
+  width: 80%;
+}
+
+.logo {
+  width: 120px;
+  height: 31px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px 24px 16px 0;
+  float: left;
+}
+
+[nz-menu] {
+  line-height: 64px;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+nz-content {
+  padding: 0 50px;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+.inner-content {
+  background: #fff;
+  padding: 24px;
+  min-height: 280px;
+}
+
+.product-item {
+  .product-item-content {
+    border: 1px solid var(--surface-d);
+    border-radius: 3px;
+    margin: 0.3rem;
+    text-align: center;
+    padding: 0.5rem 0;
+  }
+
+  .product-image {
+    border-radius: 16px;
+    width: 100px;
+    height: 150px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+  }
+}
+
+.list-item {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  //   margin-left: 20%;
+  //   margin-right: 20%;
+  // display: inline-block;
+  .item {
+    width: 230px;
+    height: 270px;
+    background-color: transparent;
+    display: inline-block;
+    margin: 10px;
+    background-color: #808080;
+    position: relative;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+
+  .btn-buy {
+    position: absolute;
+    bottom: 2px;
+    left: 20px;
+    margin-left: 25%;
+    border-radius: 10px;
+  }
+}
+div.border-text {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10.5px);
+  -webkit-backdrop-filter: blur(10.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  height: auto;
+  width: 90%;
+  background-color: transparent;
+  padding: 10px 5px 0px 5px;
+  position: absolute;
+  left: 50%;
+  top: 70%;
+  // bottom: 10px !important;
+  transform: translate(-50%, -50%);
+  color: white;
+}

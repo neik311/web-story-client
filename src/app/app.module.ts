@@ -57,6 +57,7 @@ import { FavoriteComponent } from './pages/favorite/favorite.component'
 import { HistoryComponent } from './pages/history/history.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { FirebaseUpload } from './_helpers/firebaseUpload'
+import { SearchStoryComponent } from './pages/searchStory/searchStory.component'
 
 const antDesignIcons = AllIcons as { [key: string]: IconDefinition }
 const icons: IconDefinition[] = Object.keys(antDesignIcons).map((key: string) => antDesignIcons[key])
@@ -82,6 +83,7 @@ export class MaterialModule {}
     FavoriteComponent,
     HistoryComponent,
     RegisterComponent,
+    SearchStoryComponent,
   ],
   imports: [
     BrowserModule,

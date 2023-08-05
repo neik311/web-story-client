@@ -9,6 +9,7 @@ import { ReadComponent } from './pages/read/read.component'
 import { FavoriteComponent } from './pages/favorite/favorite.component'
 import { HistoryComponent } from './pages/history/history.component'
 import { RegisterComponent } from './pages/register/register.component'
+import { SearchStoryComponent } from './pages/searchStory/searchStory.component'
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'search',
+    component: SearchStoryComponent,
   },
   {
     path: '',

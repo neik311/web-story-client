@@ -6,7 +6,7 @@
       <a [routerLink]="['home']">Trang chủ</a>
     </li>
     <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
-      <a [routerLink]="['find']">Lọc truyện</a>
+      <a [routerLink]="['search']">Lọc truyện</a>
     </li>
     <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin() && getUsername()">
       <a [routerLink]="['favorite']">Yêu thích</a>
