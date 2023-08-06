@@ -44,12 +44,33 @@
             <li nz-menu-item class="text-email">
               {{ getEmail() }}
             </li>
-            <li nz-menu-item>Profile</li>
-            <li nz-menu-item (click)="handleLogout()">Logout</li>
+            <li nz-menu-item (click)="showModal()">Thông tin</li>
+            <li nz-menu-item (click)="handleLogout()">Đăng xuất</li>
           </ul>
         </nz-dropdown-menu>
       </nz-avatar>
     </a>
   </ul>
 </div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Thông tin cá nhân" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <p>
+      Tên đăng nhập : <b> {{ getUsername() }}</b>
+    </p>
+    <p>
+      Email : <b> {{ getEmail() }}</b>
+    </p>
+    <p>Ảnh đại diện :</p>
+    <input
+      nz-input
+      placeholder="Nhập hình ảnh"
+      name="image"
+      type="file"
+      style="width: 200px; margin-bottom: 10px; margin-right: 10px"
+      (change)="onChangeFile($event)"
+    />
+    <img *ngIf="avatarUrl && avatarUrl.length > 0" [src]="avatarUrl" alt="avatar" height="100" width="auto" />
+  </ng-container>
+</nz-modal>
 <!-- </nz-header> -->

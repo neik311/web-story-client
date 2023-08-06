@@ -37,6 +37,7 @@ import { AngularFireModule } from '@angular/fire/compat'
 import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 import { NzSelectModule } from 'ng-zorro-antd/select'
 import { NzCommentModule } from 'ng-zorro-antd/comment'
+import { NzModalModule } from 'ng-zorro-antd/modal'
 
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor'
@@ -119,6 +120,7 @@ export class MaterialModule {}
     NzTableModule,
     NzSelectModule,
     NzCommentModule,
+    NzModalModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: vi_VN },

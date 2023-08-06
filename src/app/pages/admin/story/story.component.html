@@ -6,7 +6,33 @@
           <input nz-input [(ngModel)]="dataSearch.name" name="name" placeholder="Lọc tên" />
         </nz-col>
         <nz-col nzSpan="6">
-          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.isDeleted" name="isDeleted" nzPlaceHolder="Chọn trạng thái">
+          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.type" name="type" nzPlaceHolder="Chọn loại truyện">
+            <nz-option *ngFor="let item of lstStoryType" [nzLabel]="item.name" [nzValue]="item.code"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.finished" name="finished" nzPlaceHolder="Chọn trạng thái">
+            <nz-option nzLabel="Đang tiến hành" [nzValue]="false"></nz-option>
+            <nz-option nzLabel="Đã hoàn thành" [nzValue]="true"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select [(ngModel)]="dataSearch.lstCateId" nzSize="default" nzMode="multiple" nzPlaceHolder="Chon danh mục">
+            <nz-option *ngFor="let option of lstCate" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select nzShowSearch [(ngModel)]="dataSearch.sortBy" name="sortBy" nzPlaceHolder="Sắp xếp theo" class="mt-1">
+            <nz-option *ngFor="let item of lstSortBy" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select nzShowSearch [(ngModel)]="dataSearch.orderBy" name="orderBy" nzPlaceHolder="Thứ tự sắp xếp" class="mt-1">
+            <nz-option *ngFor="let item of lstOrderBy" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.isDeleted" name="isDeleted" nzPlaceHolder="Chọn trạng thái" class="mt-1">
             <nz-option *ngFor="let item of dataFilterStatus" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
           </nz-select>
         </nz-col>

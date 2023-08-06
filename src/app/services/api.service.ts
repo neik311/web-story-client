@@ -12,6 +12,9 @@ export class ApiService {
     REGISTER: `${environment.apiUrl}/auth/register`,
     GET_INFO: `${environment.apiUrl}/auth/get_info_user`,
     VERIFY: `${environment.apiUrl}/auth/verify`,
+    PAGINATION: `${environment.apiUrl}/auth/pagination`,
+    DELETE: `${environment.apiUrl}/auth/update_active`,
+    UPDATE: `${environment.apiUrl}/auth/update_data`,
   }
   CATEGORY = {
     FIND: `${environment.apiUrl}/category/find`,

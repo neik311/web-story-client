@@ -15,8 +15,29 @@ export class StoryComponent implements OnInit {
   total = enumData.Page.total
   pageSizeMax = enumData.Page.pageSizeMax
   loading = true
-  dataSearch: any = {}
+  dataSearch: any = {
+    name: null,
+    type: null,
+    finished: null,
+    sortBy: 'updatedAt',
+    orderBy: 'DESC',
+    lstCateId: [],
+  }
   listOfData: any[] = []
+  lstStoryType: any[] = []
+  lstCate: any[] = []
+  lstSortBy: any[] = [
+    { value: 'updatedAt', name: 'Thời gian cập nhật' },
+    { value: 'name', name: 'Tên' },
+    { value: 'totalView', name: 'Lượt xem' },
+    { value: 'commentCount', name: 'Lượt bình luận' },
+    { value: 'favoriteCount', name: 'Lượt yêu thích' },
+    { value: 'chapterCount', name: 'Số chương' },
+  ]
+  lstOrderBy: any[] = [
+    { value: 'DESC', name: 'Giảm dần' },
+    { value: 'ASC', name: 'Tăng dần' },
+  ]
   isCollapseFilter = false
   dataFilterStatus: any[] = []
   constructor(
@@ -29,8 +50,10 @@ export class StoryComponent implements OnInit {
 
   async ngOnInit() {
     this.dataFilterStatus = this.coreService.convertObjToArray(enumData.StatusFilter)
+    this.lstStoryType = this.coreService.convertObjToArray(enumData.StoryType)
     this.dataSearch.isDeleted = enumData.StatusFilter.Active.value
     this.searchData(true)
+    this.loadDataCategory()
   }
 
   async searchData(reset = false) {
@@ -49,6 +72,13 @@ export class StoryComponent implements OnInit {
         this.total = res[1]
         this.listOfData = res[0]
       }
+    })
+  }
+
+  loadDataCategory() {
+    this.apiService.post(this.apiService.CATEGORY.PAGINATION, { where: { isDeleted: false }, skip: 0, take: this.pageSizeMax }).then((res: any) => {
+      this.lstCate = res[0]
+      this.notifyService.hideloading()
     })
   }
 
@@ -73,6 +103,11 @@ export class StoryComponent implements OnInit {
     if (!dataSearch) dataSearch = this.dataSearch
     const where: any = {}
     if (dataSearch.name && dataSearch.name !== '') where.name = dataSearch.name
+    if (dataSearch.type && dataSearch.type !== '') where.type = dataSearch.type
+    if (dataSearch.finished && dataSearch.finished !== '') where.finished = dataSearch.finished
+    if (dataSearch.sortBy && dataSearch.sortBy !== '') where.sortBy = dataSearch.sortBy
+    if (dataSearch.orderBy && dataSearch.orderBy !== '') where.orderBy = dataSearch.orderBy
+    if (dataSearch.lstCateId && dataSearch.lstCateId.length > 0) where.lstCateId = dataSearch.lstCateId
     if (dataSearch.isDeleted === false || dataSearch.isDeleted === true) where.isDeleted = dataSearch.isDeleted
     return where
   }

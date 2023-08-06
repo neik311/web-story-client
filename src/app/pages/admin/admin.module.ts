@@ -50,6 +50,7 @@ import { AddOrEditStoryComponent } from './story/add-or-edit-story/add-or-edit-s
 import { ChapterComponent } from './chapter/chapter.component'
 import { AddOrEditChapterComponent } from './chapter/add-or-edit-chapter/add-or-edit-chapter.component'
 import { CommentComponent } from './comment/comment.component'
+import { UserComponent } from './user/user.component'
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { CommentComponent } from './comment/comment.component'
     ChapterComponent,
     AddOrEditChapterComponent,
     CommentComponent,
+    UserComponent,
   ],
   imports: [
     CommonModule,

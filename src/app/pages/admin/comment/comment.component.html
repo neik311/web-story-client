@@ -24,7 +24,7 @@
     <thead>
       <tr>
         <th nzWidth="60px"></th>
-        <th nzWidth="100px">Ảnh đại diện</th>
+        <th nzWidth="120px">Ảnh đại diện</th>
         <th>Tên</th>
         <th>Nội dung</th>
         <th>Thời gian</th>
@@ -36,7 +36,7 @@
       <ng-container *ngFor="let data of nzTable.data">
         <tr>
           <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
-          <td><nz-avatar nzIcon="user" [nzSize]="50" [nzSrc]="data.userAvatar"></nz-avatar></td>
+          <td><nz-avatar nzIcon="user" [nzSize]="40" [nzSrc]="data.userAvatar"></nz-avatar></td>
           <td>{{ data.username }}</td>
           <td>{{ data.content }}</td>
           <td>{{ data.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
