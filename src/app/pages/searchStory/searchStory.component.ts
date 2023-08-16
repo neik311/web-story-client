@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ApiService, CoreService, NotifyService } from '../../services'
 import { MatDialog } from '@angular/material/dialog'
 import { enumData } from '../../core/enumData'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-searchStory',
@@ -40,37 +40,23 @@ export class SearchStoryComponent implements OnInit {
     { value: 'ASC', name: 'Tăng dần' },
   ]
 
-  responsiveOptions: any[] = []
   constructor(
     private notifyService: NotifyService,
     private apiService: ApiService,
     private coreService: CoreService,
     private dialog: MatDialog,
     private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
     this.notifyService.showloading()
+    this.route.queryParams.subscribe((params) => {
+      if (params['name']) this.dataSearch.name = params['name']
+      this.searchData(true)
+    })
     this.lstStoryType = this.coreService.convertObjToArray(enumData.StoryType)
-    this.responsiveOptions = [
-      {
-        breakpoint: '1199px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-      {
-        breakpoint: '991px',
-        numVisible: 2,
-        numScroll: 1,
-      },
-      {
-        breakpoint: '767px',
-        numVisible: 1,
-        numScroll: 1,
-      },
-    ]
     this.loadDataCategory()
-    this.searchData()
   }
 
   loadDataCategory() {
@@ -103,7 +89,7 @@ export class SearchStoryComponent implements OnInit {
 
   async filterDataSearch(dataSearch?: any) {
     if (!dataSearch) dataSearch = this.dataSearch
-    const where: any = {}
+    const where: any = { isDeleted: false }
     if (dataSearch.name && dataSearch.name !== '') where.name = dataSearch.name
     if (dataSearch.type && dataSearch.type !== '') where.type = dataSearch.type
     if (dataSearch.finished && dataSearch.finished !== '') where.finished = dataSearch.finished

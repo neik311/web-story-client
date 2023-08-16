@@ -1,0 +1,79 @@
+<nz-row matDialogTitle>
+  <nz-col nzSpan="24" class="text-center mb-4">
+    {{ modalTitle | uppercase }}
+  </nz-col>
+</nz-row>
+
+<div matDialogContent>
+  <nz-row nzGutter="8">
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Số chương</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <b style="font-size: large; word-break: break-word">{{ dataObject.chapterNumber | number }}</b>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Tên chương</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <b style="font-size: large; word-break: break-word">{{ dataObject.name }}</b>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Lượt xem</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <p style="font-size: large; word-break: break-word">{{ dataObject.viewCount | number }}</p>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+  <nz-row>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Ngày tạo</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <p style="font-size: large; word-break: break-word">{{ dataObject.createdAt | date : 'dd/MM/yyyy HH:mm' }}</p>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Trạng thái</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <nz-tag class="tag-status" [nzColor]="'red'" *ngIf="data.isDeleted"> Ngưng hoạt động</nz-tag>
+          <nz-tag class="tag-status" [nzColor]="'green'" *ngIf="!data.isDeleted">Đang hoạt động</nz-tag>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+  <nz-row>
+    <nz-col nzSpan="24">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Nội dung</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <div *ngIf="dataObject.type === 'word'" [style]="{ fontSize: '16px' }" [innerHTML]="dataObject.content"></div>
+          <div *ngIf="dataObject.type === 'comic'">
+            <img
+              *ngFor="let image of dataObject.content.split(', ')"
+              [src]="image"
+              alt=""
+              style="width: 70%; margin-left: 30%; transform: translateX(-20%)"
+            />
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+</div>
+
+<nz-row matDialogActions>
+  <nz-col nzSpan="24" class="text-center">
+    <button nzShape="round" nz-button nzType="default" (click)="closeDialog(0)"><span nz-icon nzType="lock"></span>Đóng</button>
+  </nz-col>
+</nz-row>

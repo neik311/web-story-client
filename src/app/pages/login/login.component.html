@@ -23,10 +23,10 @@
             <span>Ghi nhớ tôi</span>
           </div> -->
           <div class="forget-pass">
-            <a href="#">Quên mật khẩu ?</a>
+            <a (click)="navigate('forgot-password')">Quên mật khẩu ?</a>
           </div>
           <div class="register">
-            <a href="/register">Đăng ký</a>
+            <a (click)="navigate('register')">Đăng ký</a>
           </div>
 
           <button type="submit" [disabled]="!username || !password" (click)="onSubmit()">Đăng nhập</button>

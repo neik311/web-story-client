@@ -35,6 +35,11 @@ export class HeaderComponent implements OnInit {
     this.avatarUrl = this.authService.currentUserValue?.avatar
   }
 
+  onSearch() {
+    if (this.textSearch.trim() === '') return
+    this.router.navigate(['search'], { queryParams: { name: this.textSearch } })
+  }
+
   onChangeFile(e: any) {
     this.avatarImage = e.target.files[0]
     const files = e.target.files
@@ -77,7 +82,7 @@ export class HeaderComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    return this.currentUser?.roleCode === enumData.Role.Admin.code
+    return this.authService.currentUserValue?.roleCode === enumData.Role.Admin.code
   }
 
   isUrlAdmin(): boolean {

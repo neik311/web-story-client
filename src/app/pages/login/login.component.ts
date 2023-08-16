@@ -24,10 +24,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.notifyService.showloading()
-    this.apiService.post(this.apiService.AUTH.LOGIN, { username: this.username, password: this.password }).then((res: any) => {
+    this.apiService.post(this.apiService.AUTH.LOGIN, { username: this.username, email: this.username, password: this.password }).then((res: any) => {
       this.authService.login(res)
       this.notifyService.showSuccess('Đăng nhập thành công')
       this.router.navigate(['home'])
     })
+  }
+
+  navigate(link: any) {
+    this.router.navigate([link])
   }
 }

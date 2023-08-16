@@ -33,7 +33,7 @@
     </li>
 
     <input nz-input placeholder="search" nzSize="large" class="ant-input" [(ngModel)]="textSearch" />
-    <span nz-icon nzType="search" nzTheme="outline" class="search-icon ant-search"></span>
+    <span nz-icon nzType="search" nzTheme="outline" class="search-icon ant-search" (click)="onSearch()"></span>
     <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="menu-item">
       <nz-avatar class="avatar" nzIcon="user" [nzSrc]="getAvatar()">
         <nz-dropdown-menu #menu="nzDropdownMenu">

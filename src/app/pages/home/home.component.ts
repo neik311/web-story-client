@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   loading = true
   dataSearch: any = {}
   listOfData: any[] = []
-  products: any[] = []
+  lstTopProduct: any[] = []
 
   responsiveOptions: any[] = []
   constructor(
@@ -53,10 +53,12 @@ export class HomeComponent implements OnInit {
   }
 
   loadSlideProduct() {
-    this.apiService.post(this.apiService.STORY.PAGINATION, { where: {}, skip: 0, take: 10 }).then((res: any) => {
-      this.products = res[0]
-      this.notifyService.hideloading()
-    })
+    this.apiService
+      .post(this.apiService.STORY.PAGINATION, { where: { sortBy: 'totalView', orderBy: 'DESC', isDeleted: false }, skip: 0, take: 8 })
+      .then((res: any) => {
+        this.lstTopProduct = res[0]
+        this.notifyService.hideloading()
+      })
   }
 
   navigateToStory(storyId: string) {
@@ -68,7 +70,7 @@ export class HomeComponent implements OnInit {
     if (reset) this.pageIndex = 1
     this.loading = true
     const dataSearch = {
-      where: {},
+      where: { isDeleted: false },
       skip: (this.pageIndex - 1) * this.pageSize,
       take: this.pageSize,
     }

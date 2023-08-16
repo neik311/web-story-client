@@ -38,6 +38,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 import { NzSelectModule } from 'ng-zorro-antd/select'
 import { NzCommentModule } from 'ng-zorro-antd/comment'
 import { NzModalModule } from 'ng-zorro-antd/modal'
+import { NzPopoverModule } from 'ng-zorro-antd/popover'
 
 import { OverlayContainer } from '@angular/cdk/overlay'
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor'
@@ -59,6 +60,7 @@ import { HistoryComponent } from './pages/history/history.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { FirebaseUpload } from './_helpers/firebaseUpload'
 import { SearchStoryComponent } from './pages/searchStory/searchStory.component'
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component'
 
 const antDesignIcons = AllIcons as { [key: string]: IconDefinition }
 const icons: IconDefinition[] = Object.keys(antDesignIcons).map((key: string) => antDesignIcons[key])
@@ -85,6 +87,7 @@ export class MaterialModule {}
     HistoryComponent,
     RegisterComponent,
     SearchStoryComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -121,6 +124,7 @@ export class MaterialModule {}
     NzSelectModule,
     NzCommentModule,
     NzModalModule,
+    NzPopoverModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: vi_VN },

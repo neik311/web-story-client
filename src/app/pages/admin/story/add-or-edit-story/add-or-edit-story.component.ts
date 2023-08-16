@@ -45,6 +45,14 @@ export class AddOrEditStoryComponent implements OnInit {
   async onSave() {
     this.notifyService.showloading()
     if (this.avatarImage) this.dataObject.avatar = await this.uploadImageToFirebase()
+    if (!this.dataObject.avatar) {
+      this.notifyService.showError('Hãy chọn ảnh đại diện')
+      return
+    }
+    if (!this.dataObject.lstCategoryId || this.dataObject.lstCategoryId.length === 0) {
+      this.notifyService.showError('Hãy chọn một danh mục')
+      return
+    }
     // console.log(this.dataObject)
     if (this.isCreate === false) {
       this.updateData()

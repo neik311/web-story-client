@@ -72,7 +72,7 @@
           <th>Lượt xem</th>
           <th>Đã hoàn thành</th>
           <th nzRight style="width: 200px">Trạng thái</th>
-          <th nzRight style="width: 220px">Tác vụ</th>
+          <th nzRight style="width: 250px">Tác vụ</th>
         </tr>
       </thead>
       <tbody>
@@ -147,6 +147,10 @@
                 <span nz-icon nzType="comment"></span>
               </button>
             </nz-badge>
+
+            <button (click)="clickPrint(data)" nzShape="circle" nz-tooltip nzTooltipTitle="In truyện" nz-button class="btn-primary mr-1 mt-1">
+              <span nz-icon nzType="printer"></span>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -165,4 +169,14 @@
     </nz-pagination>
     <ng-template #rangeTemplate let-range="range" let-total> Dòng {{ range[0] }} đến {{ range[1] }} trong tổng {{ total }} dữ liệu </ng-template>
   </nz-row>
+
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="Ngưng hoạt động truyện" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent style="font-size: 18px">
+      <p>
+        Ngưng hoạt động truyện sẽ ngưng hoạt động chương truyện và bình luận tương ứng, lịch sử và yêu thích của người dùng có liên quan cũng sẽ bị
+        ẩn.
+      </p>
+      <p>Bạn có chắn chắn muốn thực hiện ?</p>
+    </ng-container>
+  </nz-modal>
 </nz-card>

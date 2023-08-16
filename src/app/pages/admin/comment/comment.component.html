@@ -44,7 +44,7 @@
             <nz-tag class="tag-status" [nzColor]="'red'" *ngIf="data.isDeleted"> Ngưng hoạt động</nz-tag>
             <nz-tag class="tag-status" [nzColor]="'green'" *ngIf="!data.isDeleted">Đang hoạt động</nz-tag>
           </td>
-          <td>
+          <td class="text-center">
             <button
               nzShape="circle"
               nz-button
@@ -75,7 +75,7 @@
         <ng-container *ngIf="expandSet.has(data.id)">
           <tr *ngFor="let child of data?.__children__">
             <td></td>
-            <td><nz-avatar nzIcon="user" [nzSize]="50" [nzSrc]="data.userAvatar"></nz-avatar></td>
+            <td><nz-avatar nzIcon="user" [nzSize]="40" [nzSrc]="child.userAvatar"></nz-avatar></td>
             <td>{{ child.username }}</td>
             <td>{{ child.content }}</td>
             <td>{{ child.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
@@ -83,8 +83,9 @@
               <nz-tag class="tag-status" [nzColor]="'red'" *ngIf="child.isDeleted"> Ngưng hoạt động</nz-tag>
               <nz-tag class="tag-status" [nzColor]="'green'" *ngIf="!child.isDeleted">Đang hoạt động</nz-tag>
             </td>
-            <td>
+            <td class="text-center">
               <button
+                *ngIf="!data.isDeleted"
                 nzShape="circle"
                 nz-button
                 nz-tooltip

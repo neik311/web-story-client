@@ -1,3 +1,97 @@
-<p>
-  story-detail works!
-</p>
+<nz-row matDialogTitle>
+  <nz-col nzSpan="24" class="text-center mb-4">
+    {{ modalTitle | uppercase }}
+  </nz-col>
+</nz-row>
+
+<div matDialogContent>
+  <nz-row nzGutter="8">
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Tên truyện</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <b style="font-size: large; word-break: break-word">{{ dataObject.name }}</b>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Tên gọi khác</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <b style="font-size: large; word-break: break-word">{{ dataObject.othorName }}</b>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Tác giả</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <p style="font-size: large; word-break: break-word">{{ dataObject.author }}</p>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+  <nz-row>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Đã hoàn thành</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <label nz-checkbox [(ngModel)]="dataObject.finished" name="finished" [disabled]="true"></label>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Loại truyện</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <p style="font-size: large; word-break: break-word">{{ dataObject.typeName }}</p>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Danh mục</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <p style="font-size: large; word-break: break-word">{{ dataObject.lstCategoryName.join(', ') }}</p>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+  <nz-row>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Ảnh đại diện</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <img *ngIf="dataObject.avatar?.length > 0" [src]="dataObject.avatar" alt="avatar" height="100" width="auto" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col nzSpan="8">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Trạng thái</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <nz-tag class="tag-status" [nzColor]="'red'" *ngIf="data.isDeleted"> Ngưng hoạt động</nz-tag>
+          <nz-tag class="tag-status" [nzColor]="'green'" *ngIf="!data.isDeleted">Đang hoạt động</nz-tag>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+  <nz-row>
+    <nz-col nzSpan="24">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Nội dung</nz-form-label>
+        <nz-form-control [nzSm]="24" [nzXs]="24">
+          <p style="font-size: large; word-break: break-word">{{ dataObject.content }}</p>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+</div>
+
+<nz-row matDialogActions>
+  <nz-col nzSpan="24" class="text-center">
+    <button nzShape="round" nz-button nzType="default" (click)="closeDialog(0)"><span nz-icon nzType="lock"></span>Đóng</button>
+  </nz-col>
+</nz-row>

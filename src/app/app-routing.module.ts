@@ -10,6 +10,7 @@ import { FavoriteComponent } from './pages/favorite/favorite.component'
 import { HistoryComponent } from './pages/history/history.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { SearchStoryComponent } from './pages/searchStory/searchStory.component'
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component'
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
   },
   {
     path: 'story/:id',

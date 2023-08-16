@@ -27,8 +27,8 @@
     <nz-table nz-col nzSpan="24" #ajaxTable [nzData]="lstChapter" [nzLoading]="loading" [nzFrontPagination]="false" nzBordered>
       <thead>
         <tr>
-          <th>Số thứ tự chapter</th>
-          <th>Tên chapter</th>
+          <th>Số chương</th>
+          <th>Tên chương</th>
           <th>Lượt xem</th>
           <th>Ngày tạo</th>
           <th>Trạng thái</th>
@@ -40,12 +40,12 @@
           <td>{{ data.chapterNumber | number }}</td>
           <td>{{ data.name }}</td>
           <td>{{ data.viewCount | number }}</td>
-          <td>{{ data.createdAt | date : 'dd/MM/yyyy' }}</td>
+          <td>{{ data.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
           <td class="text-center" nzRight>
             <nz-tag class="tag-status" [nzColor]="'red'" *ngIf="data.isDeleted"> Ngưng hoạt động</nz-tag>
             <nz-tag class="tag-status" [nzColor]="'green'" *ngIf="!data.isDeleted">Đang hoạt động</nz-tag>
           </td>
-          <td class="text-left" nzRight>
+          <td class="text-center" nzRight>
             <button nzShape="circle" (click)="clickDetail(data)" nz-tooltip nzTooltipTitle="Xem chi tiết" nz-button class="mr-1 mt-1 btn-primary">
               <span nz-icon nzType="eye"></span>
             </button>

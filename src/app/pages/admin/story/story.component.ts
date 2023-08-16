@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog'
 import { enumData } from '../../../core/enumData'
 import { ApiService, CoreService, NotifyService } from '../../../services'
 import { AddOrEditStoryComponent } from './add-or-edit-story/add-or-edit-story.component'
+import { StoryDetailComponent } from './story-detail/story-detail.component'
+import { StoryPrintComponent } from './story-print/story-print.component'
 
 @Component({
   templateUrl: './story.component.html',
@@ -38,6 +40,8 @@ export class StoryComponent implements OnInit {
     { value: 'DESC', name: 'Giảm dần' },
     { value: 'ASC', name: 'Tăng dần' },
   ]
+  isVisible = false
+  currentStoryId: string = ''
   isCollapseFilter = false
   dataFilterStatus: any[] = []
   constructor(
@@ -81,8 +85,6 @@ export class StoryComponent implements OnInit {
       this.notifyService.hideloading()
     })
   }
-
-  clickDetail(data: any) {}
 
   navigateToChapter(storyId: string) {
     this.router.navigate([`admin/chapter/${storyId}`])
@@ -132,7 +134,32 @@ export class StoryComponent implements OnInit {
       })
   }
 
+  clickDetail(data: any) {
+    this.dialog
+      .open(StoryDetailComponent, {
+        disableClose: false,
+        data,
+      })
+      .afterClosed()
+      .subscribe()
+  }
+
+  clickPrint(data: any) {
+    this.dialog
+      .open(StoryPrintComponent, {
+        disableClose: false,
+        data,
+      })
+      .afterClosed()
+      .subscribe()
+  }
+
   onActive(data: any) {
+    if (!data.isDeleted) {
+      this.currentStoryId = data.id
+      this.isVisible = true
+      return
+    }
     this.notifyService.showloading()
     this.apiService.post(this.apiService.STORY.DELETE, { id: data.id }).then((res: any) => {
       this.notifyService.hideloading()
@@ -141,5 +168,25 @@ export class StoryComponent implements OnInit {
         this.searchData()
       }
     })
+  }
+
+  showModal(): void {
+    this.isVisible = true
+  }
+
+  handleOk(): void {
+    this.notifyService.showloading()
+    this.apiService.post(this.apiService.STORY.DELETE, { id: this.currentStoryId }).then((res: any) => {
+      this.notifyService.hideloading()
+      this.isVisible = false
+      if (res) {
+        this.notifyService.showSuccess('Cập nhật trạng thái thành công!')
+        this.searchData()
+      }
+    })
+  }
+
+  handleCancel(): void {
+    this.isVisible = false
   }
 }
