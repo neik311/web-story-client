@@ -1,0 +1,127 @@
+<nz-card>
+  <nz-row class="mt-2 text-center">
+    <div nz-col [nzSpan]="24">
+      <h1 class="text-center">{{ story.name }}</h1>
+    </div>
+  </nz-row>
+  <nz-collapse class="mb-4">
+    <nz-collapse-panel nzHeader="Tìm kiếm">
+      <nz-row nzGutter="8" class="mt-3">
+        <nz-col nzSpan="8">
+          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.isDeleted" name="isDeleted" nzPlaceHolder="Chọn trạng thái">
+            <nz-option *ngFor="let item of dataFilterStatus" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+          </nz-select>
+        </nz-col>
+
+        <nz-col nzSpan="24" class="text-center mt-3">
+          <button nzShape="round" nz-button (click)="loadData(true)" nzType="primary" nzGhost><span nz-icon nzType="search"></span>Tìm kiếm</button>
+        </nz-col>
+      </nz-row>
+    </nz-collapse-panel>
+  </nz-collapse>
+
+  <nz-table #nzTable [nzData]="lstComment" [nzLoading]="loading" [nzFrontPagination]="false" nzTableLayout="fixed">
+    <thead>
+      <tr>
+        <th nzWidth="60px"></th>
+        <th nzWidth="120px">Ảnh đại diện</th>
+        <th>Tên</th>
+        <th>Nội dung</th>
+        <th>Thời gian</th>
+        <th>Trạng thái</th>
+        <th>Tác vụ</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let data of nzTable.data">
+        <tr>
+          <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+          <td><nz-avatar nzIcon="user" [nzSize]="40" [nzSrc]="data.userAvatar"></nz-avatar></td>
+          <td>{{ data.username }}</td>
+          <td>{{ data.content }}</td>
+          <td>{{ data.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
+          <td class="text-center" nzRight>
+            <nz-tag class="tag-status" [nzColor]="'red'" *ngIf="data.isDeleted"> Ngưng hoạt động</nz-tag>
+            <nz-tag class="tag-status" [nzColor]="'green'" *ngIf="!data.isDeleted">Đang hoạt động</nz-tag>
+          </td>
+          <td class="text-center">
+            <button
+              nzShape="circle"
+              nz-button
+              nz-tooltip
+              nz-popconfirm
+              nzShape="circle"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="onActive(data)"
+              [nzTooltipTitle]="data.isDeleted == true ? 'Hoạt động lại' : 'Ngưng hoạt động'"
+              [class]="data.isDeleted == true ? 'mr-2 btn-primary-active' : 'mr-2 btn-not-active'"
+              [nzPopconfirmTitle]="'Bạn có chắc muốn ' + (data.isDeleted == true ? '[ Hoạt động lại ] ?' : '[ Ngưng hoạt động ] ?')"
+            >
+              <span nz-icon [nzType]="data.isDeleted == true ? 'play-circle' : 'stop'"></span>
+            </button>
+            <button
+              nzShape="circle"
+              *ngIf="!data.isDeleted"
+              (click)="showFeedback(data.id)"
+              nz-tooltip
+              nzTooltipTitle="Phản hồi"
+              nz-button
+              class="mr-1 mt-1 btn-primary"
+            >
+              <span nz-icon nzType="rollback"></span>
+            </button>
+          </td>
+        </tr>
+        <ng-container *ngIf="expandSet.has(data.id)">
+          <tr *ngFor="let child of data?.__children__">
+            <td></td>
+            <td><nz-avatar nzIcon="user" [nzSize]="40" [nzSrc]="child.userAvatar"></nz-avatar></td>
+            <td>{{ child.username }}</td>
+            <td>{{ child.content }}</td>
+            <td>{{ child.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
+            <td class="text-center" nzRight>
+              <nz-tag class="tag-status" [nzColor]="'red'" *ngIf="child.isDeleted"> Ngưng hoạt động</nz-tag>
+              <nz-tag class="tag-status" [nzColor]="'green'" *ngIf="!child.isDeleted">Đang hoạt động</nz-tag>
+            </td>
+            <td class="text-center">
+              <button
+                *ngIf="!data.isDeleted"
+                nzShape="circle"
+                nz-button
+                nz-tooltip
+                nz-popconfirm
+                nzShape="circle"
+                nzPopconfirmPlacement="bottom"
+                (nzOnConfirm)="onActive(child)"
+                [nzTooltipTitle]="child.isDeleted == true ? 'Hoạt động lại' : 'Ngưng hoạt động'"
+                [class]="child.isDeleted == true ? 'mr-2 btn-primary-active' : 'mr-2 btn-not-active'"
+                [nzPopconfirmTitle]="'Bạn có chắc muốn ' + (child.isDeleted == true ? '[ Hoạt động lại ] ?' : '[ Ngưng hoạt động ] ?')"
+              >
+                <span nz-icon [nzType]="child.isDeleted == true ? 'play-circle' : 'stop'"></span>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </nz-table>
+  <nz-pagination
+    class="mt-2"
+    [nzTotal]="total"
+    [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="loadData()"
+    (nzPageSizeChange)="loadData(true)"
+    [nzShowTotal]="rangeTemplate"
+    nzShowSizeChanger
+    [nzPageSizeOptions]="lstPageSize"
+  >
+  </nz-pagination>
+  <ng-template #rangeTemplate let-range="range" let-total> Dòng {{ range[0] }} đến {{ range[1] }} trong tổng {{ total }} dữ liệu </ng-template>
+</nz-card>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Nhập phản hồi" (nzOnCancel)="handleCancel()" (nzOnOk)="feedback()">
+  <ng-container *nzModalContent>
+    <textarea rows="2" nz-input placeholder="Nhập phản hồi" [(ngModel)]="feedbackComment" name="feedbackComment"></textarea>
+  </ng-container>
+</nz-modal>

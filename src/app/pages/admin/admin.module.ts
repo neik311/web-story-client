@@ -29,6 +29,17 @@ import { NgxPrintModule } from 'ngx-print'
 import { MaterialModule } from '../../app.module'
 import { NzSwitchModule } from 'ng-zorro-antd/switch'
 import { NzCardModule } from 'ng-zorro-antd/card'
+import {
+  RichTextEditorModule,
+  ToolbarService,
+  TableService,
+  QuickToolbarService,
+  LinkService,
+  ImageService,
+  HtmlEditorService,
+  MarkdownEditorService,
+} from '@syncfusion/ej2-angular-richtexteditor'
+import { NzAvatarModule } from 'ng-zorro-antd/avatar'
 
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown'
 import { AdminRoutingModule } from './admin-routing.module'
@@ -38,9 +49,26 @@ import { StoryComponent } from './story/story.component'
 import { AddOrEditStoryComponent } from './story/add-or-edit-story/add-or-edit-story.component'
 import { ChapterComponent } from './chapter/chapter.component'
 import { AddOrEditChapterComponent } from './chapter/add-or-edit-chapter/add-or-edit-chapter.component'
+import { CommentComponent } from './comment/comment.component'
+import { UserComponent } from './user/user.component'
+import { ChapterDetailComponent } from './chapter/chapter-detail/chapter-detail.component'
+import { StoryDetailComponent } from './story/story-detail/story-detail.component'
+import { StoryPrintComponent } from './story/story-print/story-print.component'
 
 @NgModule({
-  declarations: [CategoryComponent, AddOrEditCategoryComponent, StoryComponent, AddOrEditStoryComponent, ChapterComponent, AddOrEditChapterComponent],
+  declarations: [
+    CategoryComponent,
+    AddOrEditCategoryComponent,
+    StoryComponent,
+    AddOrEditStoryComponent,
+    ChapterComponent,
+    AddOrEditChapterComponent,
+    CommentComponent,
+    UserComponent,
+    ChapterDetailComponent,
+    StoryDetailComponent,
+    StoryPrintComponent,
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -75,7 +103,10 @@ import { AddOrEditChapterComponent } from './chapter/add-or-edit-chapter/add-or-
     NzSwitchModule,
     NzDropDownModule,
     NzCardModule,
+    RichTextEditorModule,
+    NzAvatarModule,
   ],
+  providers: [ToolbarService, LinkService, ImageService, HtmlEditorService, TableService, QuickToolbarService, MarkdownEditorService],
   // providers: [{ provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }],
   // schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

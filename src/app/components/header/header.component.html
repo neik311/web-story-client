@@ -1,57 +1,76 @@
-<nz-header>
+<!-- <nz-header> -->
+<div class="main-header">
   <ul nz-menu nzMode="horizontal" class="list-title">
-    <img src="assets/logo.png" alt="logo" (click)="navigate('home')" style="width: 50px; height: 50px; cursor: pointer" />
+    <img src="assets/logo.png" alt="logo" (click)="navigate('home')" style="width: 50px; height: 50px; cursor: pointer; margin-left: 50px" />
     <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
       <a [routerLink]="['home']">Trang chủ</a>
     </li>
     <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
-      <a [routerLink]="['find']">Lọc truyện</a>
+      <a [routerLink]="['search']">Lọc truyện</a>
     </li>
-    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
+    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin() && getUsername()">
       <a [routerLink]="['favorite']">Yêu thích</a>
     </li>
-    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin()">
+    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin() && getUsername()">
       <a [routerLink]="['history']">Lịch sử</a>
     </li>
 
     <li nz-menu-item nzMatchRouter *ngIf="isAdmin() && !isUrlAdmin()">
       <a [routerLink]="['admin/category']">Quản lý</a>
     </li>
-    <li nz-menu-item nzMatchRouter *ngIf="isUrlAdmin()">
+    <li nz-menu-item nzMatchRouter *ngIf="isAdmin() && isUrlAdmin()">
       <a [routerLink]="['admin/category']">Danh mục</a>
     </li>
-    <li nz-menu-item nzMatchRouter *ngIf="isUrlAdmin()">
+    <li nz-menu-item nzMatchRouter *ngIf="isAdmin() && isUrlAdmin()">
       <a [routerLink]="['admin/story']">Truyện</a>
     </li>
-    <li nz-menu-item nzMatchRouter *ngIf="isUrlAdmin()">
+    <li nz-menu-item nzMatchRouter *ngIf="isAdmin() && isUrlAdmin()">
       <a [routerLink]="['admin/user']">Người dùng</a>
     </li>
 
-    <li nz-menu-item nzMatchRouter *ngIf="!currentUser">
+    <li nz-menu-item nzMatchRouter *ngIf="!getUsername()">
       <a [routerLink]="['login']">Đăng nhập</a>
     </li>
 
     <input nz-input placeholder="search" nzSize="large" class="ant-input" [(ngModel)]="textSearch" />
-    <span nz-icon nzType="search" nzTheme="outline" class="search-icon ant-search"></span>
+    <span nz-icon nzType="search" nzTheme="outline" class="search-icon ant-search" (click)="onSearch()"></span>
     <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" class="menu-item">
-      <nz-avatar
-        class="avatar"
-        nzIcon="user"
-        nzSrc="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsto7qNGOPFrDq674w5BQs4IikRohtq9Oa9er9pz0&s"
-      >
+      <nz-avatar class="avatar" nzIcon="user" [nzSrc]="getAvatar()">
         <nz-dropdown-menu #menu="nzDropdownMenu">
-          <ul nz-menu style="margin-top: 20px">
+          <ul nz-menu *ngIf="getUsername()" style="margin-top: 20px">
             <li nz-menu-item class="text-username">
-              {{ currentUser?.username }}
+              {{ getUsername() }}
             </li>
             <li nz-menu-item class="text-email">
-              {{ currentUser?.email }}
+              {{ getEmail() }}
             </li>
-            <li nz-menu-item>Profile</li>
-            <li nz-menu-item>Logout</li>
+            <li nz-menu-item (click)="showModal()">Thông tin</li>
+            <li nz-menu-item (click)="handleLogout()">Đăng xuất</li>
           </ul>
         </nz-dropdown-menu>
       </nz-avatar>
     </a>
   </ul>
-</nz-header>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Thông tin cá nhân" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <p>
+      Tên đăng nhập : <b> {{ getUsername() }}</b>
+    </p>
+    <p>
+      Email : <b> {{ getEmail() }}</b>
+    </p>
+    <p>Ảnh đại diện :</p>
+    <input
+      nz-input
+      placeholder="Nhập hình ảnh"
+      name="image"
+      type="file"
+      style="width: 200px; margin-bottom: 10px; margin-right: 10px"
+      (change)="onChangeFile($event)"
+    />
+    <img *ngIf="avatarUrl && avatarUrl.length > 0" [src]="avatarUrl" alt="avatar" height="100" width="auto" />
+  </ng-container>
+</nz-modal>
+<!-- </nz-header> -->

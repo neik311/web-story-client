@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { AddOrEditCategoryComponent } from './add-or-edit-category/add-or-edit-category.component'
 import { enumData } from '../../../core/enumData'
 import { ApiService, CoreService, NotifyService } from '../../../services'
-import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-category',

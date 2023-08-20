@@ -1,0 +1,86 @@
+<nz-card>
+  <nz-collapse>
+    <nz-collapse-panel nzHeader="Tìm kiếm">
+      <nz-row nzGutter="6" class="mt-3">
+        <nz-col nzSpan="6">
+          <input nz-input [(ngModel)]="dataSearch.name" name="name" placeholder="Lọc tên đăng nhập" />
+        </nz-col>
+        <nz-col nzSpan="6">
+          <input nz-input [(ngModel)]="dataSearch.email" name="email" placeholder="Lọc Email" />
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.isDeleted" name="isDeleted" nzPlaceHolder="Chọn trạng thái">
+            <nz-option *ngFor="let item of dataFilterStatus" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.verified" name="verified" nzPlaceHolder="Xác minh">
+            <nz-option *ngFor="let item of lstVerified" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+          </nz-select>
+        </nz-col>
+
+        <nz-col nzSpan="24" class="text-center mt-3">
+          <button nzShape="round" nz-button (click)="searchData(true)" nzType="primary" nzGhost><span nz-icon nzType="search"></span>Tìm kiếm</button>
+        </nz-col>
+      </nz-row>
+    </nz-collapse-panel>
+  </nz-collapse>
+
+  <nz-row class="mt-2">
+    <nz-table nz-col nzSpan="24" #ajaxTable [nzData]="listOfData" [nzLoading]="loading" [nzFrontPagination]="false" nzBordered>
+      <thead>
+        <tr>
+          <th nzWidth="120px">Ảnh đại diện</th>
+          <th>Tên đăng nhập</th>
+          <th>Email</th>
+          <th>Ngày đăng ký</th>
+          <th>Xác minh</th>
+          <th>Trạng thái</th>
+          <th>Tác vụ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of ajaxTable.data">
+          <td align="center"><nz-avatar nzIcon="user" [nzSrc]="data.avatar" [nzSize]="50"></nz-avatar></td>
+          <td>{{ data.username }}</td>
+          <td>{{ data.email }}</td>
+          <td>{{ data.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ data.verified ? 'Đã xác minh' : 'Chưa xác minh' }}</td>
+          <td class="text-center">
+            <nz-tag class="tag-status" [nzColor]="'red'" *ngIf="data.isDeleted"> Ngưng hoạt động</nz-tag>
+            <nz-tag class="tag-status" [nzColor]="'green'" *ngIf="!data.isDeleted">Đang hoạt động</nz-tag>
+          </td>
+          <td class="text-center">
+            <button
+              nzShape="circle"
+              nz-button
+              nz-tooltip
+              nz-popconfirm
+              nzShape="circle"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="onActive(data)"
+              [nzTooltipTitle]="data.isDeleted == true ? 'Hoạt động lại' : 'Ngưng hoạt động'"
+              [class]="data.isDeleted == true ? 'mr-2 btn-primary-active' : 'mr-2 btn-not-active'"
+              [nzPopconfirmTitle]="'Bạn có chắc muốn ' + (data.isDeleted == true ? '[ Hoạt động lại ] ?' : '[ Ngưng hoạt động ] ?')"
+            >
+              <span nz-icon [nzType]="data.isDeleted == true ? 'play-circle' : 'stop'"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <nz-pagination
+      class="mt-2"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData()"
+      (nzPageSizeChange)="searchData(true)"
+      [nzShowTotal]="rangeTemplate"
+      nzShowSizeChanger
+      [nzPageSizeOptions]="lstPageSize"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total> Dòng {{ range[0] }} đến {{ range[1] }} trong tổng {{ total }} dữ liệu </ng-template>
+  </nz-row>
+</nz-card>

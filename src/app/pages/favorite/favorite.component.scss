@@ -1,0 +1,49 @@
+.main {
+  background-color: azure;
+}
+
+.list-item {
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  //   margin-left: 20%;
+  //   margin-right: 20%;
+  // display: inline-block;
+  .item {
+    width: 230px;
+    height: 270px;
+    background-color: transparent;
+    display: inline-block;
+    margin: 10px;
+    background-color: #808080;
+    position: relative;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+
+  .btn-buy {
+    position: absolute;
+    bottom: 2px;
+    left: 20px;
+    margin-left: 25%;
+    border-radius: 10px;
+  }
+}
+div.border-text {
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10.5px);
+  -webkit-backdrop-filter: blur(10.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  height: auto;
+  width: 80%;
+  background-color: transparent;
+  padding: 10px 20px 0px 20px;
+  position: absolute;
+  left: 50%;
+  top: 80%;
+  transform: translate(-50%, -50%);
+  color: white;
+}

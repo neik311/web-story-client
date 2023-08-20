@@ -1,12 +1,27 @@
 /* .layout { */
 /* min-height: 100vh; */
 nz-header {
-  background-color: #f2f2f2;
+  background-color: white;
+  // box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.main-header {
+  margin-left: 2px;
+  margin-right: 2px;
+  padding: 0px 5px 5px 5px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  margin-bottom: 5px;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  // position: fixed;
+  // top: 0;
 }
 
 .list-title {
-  margin-left: 10px;
-  background-color: #f2f2f2;
+  padding: 5px;
+  // padding-bottom: 5px;
+  background-color: white;
 
   nz-header {
     position: fixed;
@@ -30,19 +45,23 @@ nz-header {
     text-align: center;
   }
   .menu-item {
-    margin-left: 100px;
+    margin-left: 250px;
+    // position: fixed;
+    // right: 100px;
   }
   .ant-input {
-    width: 500px;
+    width: 30%;
     margin: 0 8px 8px 0;
     margin-left: 5%;
+    margin-top: 10px;
   }
   .ant-search {
     position: absolute;
     margin-left: -50px;
-    margin-top: 19px;
+    margin-top: 20px;
     font-size: 23px;
     color: black;
+    cursor: pointer;
   }
 }
 /* } */

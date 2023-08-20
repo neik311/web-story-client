@@ -42,11 +42,20 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col [nzSpan]="16">
+      <div nz-col [nzSpan]="8">
         <nz-form-item nzFlex>
-          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Nội dung</nz-form-label>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Loại truyện</nz-form-label>
           <nz-form-control [nzSm]="22" [nzXs]="24">
-            <textarea rows="3" nz-input placeholder="Nhập nội dung" [(ngModel)]="dataObject.content" name="content"></textarea>
+            <nz-select
+              required
+              nzShowSearch
+              [(ngModel)]="dataObject.type"
+              name="type"
+              nzPlaceHolder="Chọn loại truyện"
+              [disabled]="dataObject && dataObject?.chapterCount > 0"
+            >
+              <nz-option *ngFor="let item of lstStoryType" [nzLabel]="item.name" [nzValue]="item.code"></nz-option>
+            </nz-select>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -55,9 +64,10 @@
     <div nz-row>
       <div nz-col [nzSpan]="8">
         <nz-form-item nzFlex>
-          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Danh mục</nz-form-label>
-          <nz-form-control [nzSm]="22" [nzXs]="24">
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Danh mục</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24" nzErrorTip="Vui lòng chọn danh mục">
             <nz-select
+              required
               nzMode="multiple"
               [(ngModel)]="dataObject.lstCategoryId"
               name="lstCategoryId"
@@ -71,13 +81,24 @@
       </div>
       <div nz-col [nzSpan]="8">
         <nz-form-item nzFlex>
-          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Ảnh đại diện</nz-form-label>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Ảnh đại diện</nz-form-label>
           <nz-form-control [nzSm]="22" [nzXs]="22">
-            <input nz-input placeholder="Nhập hình ảnh" name="image" type="file" (change)="onChangeFile($event)" />
+            <input nz-input required placeholder="Nhập hình ảnh" name="image" type="file" (change)="onChangeFile($event)" />
           </nz-form-control>
         </nz-form-item>
       </div>
       <img *ngIf="dataObject.avatar?.length > 0" [src]="dataObject.avatar" alt="avatar" height="100" width="auto" />
+    </div>
+
+    <div nz-row>
+      <div nz-col [nzSpan]="24">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Nội dung</nz-form-label>
+          <nz-form-control [nzSm]="23" [nzXs]="24">
+            <textarea rows="6" nz-input placeholder="Nhập nội dung" [(ngModel)]="dataObject.content" name="content"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
     </div>
   </div>
 

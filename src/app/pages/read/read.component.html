@@ -1,0 +1,66 @@
+<div class="main">
+  <nz-card style="width: 80%; margin-left: auto; margin-right: auto">
+    <div style="margin-bottom: 10px">
+      <button nz-button nzType="text" (click)="navigateToStory()"><span nz-icon nzType="arrow-left"></span>Quay lại</button>
+      <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" *ngIf="chapter.storyType === 'word'">
+        <span nz-icon nzType="setting" nzTheme="outline" style="font-size: 18px; margin-left: 10px"> </span>
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <nz-card nzHoverable style="width: 200px">
+          <p style="display: inline-block">Cỡ chữ :</p>
+          <nz-select nzShowSearch nzPlaceHolder="Chọn cỡ chữ" [(ngModel)]="fontSize" style="width: 70px; display: inline-block; margin-left: 10px">
+            <nz-option *ngFor="let item of lstFontSize" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+          </nz-select>
+        </nz-card>
+      </nz-dropdown-menu>
+    </div>
+    <div>
+      <button nz-button nzType="primary" nzSize="large" [disabled]="!chapter.prevId" (click)="navigateToChapter(chapter.prevId)">
+        <span nz-icon nzType="left"></span>Chương Trước
+      </button>
+      <nz-select nzShowSearch nzPlaceHolder="Chọn chương" [(ngModel)]="selectedChapter" (ngModelChange)="onChangeChapter($event)">
+        <nz-option *ngFor="let item of lstChapter" [nzLabel]="getLabelChapter(item)" [nzValue]="item.id"></nz-option>
+      </nz-select>
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="large"
+        style="position: absolute; right: 20px"
+        [disabled]="!chapter.nextId"
+        (click)="navigateToChapter(chapter.nextId)"
+      >
+        Chương Sau<span nz-icon nzType="right"></span>
+      </button>
+    </div>
+    <div style="margin-top: 20px; margin-bottom: 30px">
+      <h1>Chương {{ chapter.chapterNumber }} {{ chapter.name ? '. ' + chapter.name : '' }}</h1>
+      <div class="info-chapter">
+        <p>{{ chapter.storyName }}</p>
+        <p>{{ chapter.viewCount }} <span nz-icon nzType="eye" nzTheme="outline"></span></p>
+        <p>{{ chapter.createdAt | date : 'dd/MM/yyyy HH:mm' }}</p>
+      </div>
+    </div>
+    <div *ngIf="chapter.storyType === 'word'" [style]="{ fontSize: fontSize }" [innerHTML]="chapter.content"></div>
+    <div *ngIf="chapter.storyType === 'comic'">
+      <img *ngFor="let image of lstImage" [src]="image" alt="" style="width: 70%; margin-left: 30%; transform: translateX(-20%)" />
+    </div>
+    <!-- <div ng:bind="chapter.content"></div> -->
+
+    <div>
+      <button nz-button nzType="primary" nzSize="large" [disabled]="!chapter.prevId" (click)="navigateToChapter(chapter.prevId)">
+        <span nz-icon nzType="left"></span>Chương Trước
+      </button>
+
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="large"
+        style="position: absolute; right: 20px"
+        [disabled]="!chapter.nextId"
+        (click)="navigateToChapter(chapter.nextId)"
+      >
+        Chương Sau<span nz-icon nzType="right"></span>
+      </button>
+    </div>
+  </nz-card>
+</div>

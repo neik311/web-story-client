@@ -1,0 +1,30 @@
+<div class="main">
+  <nz-card style="width: 80%; margin-left: auto; margin-right: auto">
+    <div>
+      <h2>Danh sách Yêu thích</h2>
+      <div class="list-item">
+        <div class="item" *ngFor="let item of listOfData">
+          <img width="100%" height="100%" [src]="item.storyAvatar" alt="Image" style="border-radius: 20px" (click)="navigateToStory(item.storyId)" />
+          <div class="border-text">
+            <p>{{ item.storyName }}</p>
+            <button nz-button nzType="primary" nzDanger (click)="deleteFavorite(item)">Xóa</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nz-pagination
+      class="mt-4"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData()"
+      (nzPageSizeChange)="searchData(true)"
+      [nzShowTotal]="rangeTemplate"
+      nzShowSizeChanger
+      [nzPageSizeOptions]="lstPageSize"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total> truyện {{ range[0] }} - {{ range[1] }} trong tổng {{ total }} truyện </ng-template>
+  </nz-card>
+</div>

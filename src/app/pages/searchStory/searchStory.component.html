@@ -1,0 +1,109 @@
+<div class="main">
+  <nz-card style="width: 80%; margin-left: auto; margin-right: auto">
+    <div style="width: 80%; margin-left: auto; margin-right: auto; text-align: center">
+      <input nz-input placeholder="Nhập tên" [(ngModel)]="dataSearch.name" style="width: 40%" />
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        [(ngModel)]="dataSearch.type"
+        name="type"
+        nzPlaceHolder="Chọn loại truyện"
+        style="width: 20%; margin-left: 5px"
+      >
+        <nz-option *ngFor="let item of lstStoryType" [nzLabel]="item.name" [nzValue]="item.code"></nz-option>
+      </nz-select>
+      <nz-select
+        nzShowSearch
+        nzAllowClear
+        [(ngModel)]="dataSearch.finished"
+        name="finished"
+        nzPlaceHolder="Chọn trạng thái"
+        style="width: 20%; margin-left: 5px"
+      >
+        <nz-option nzLabel="Đang tiến hành" [nzValue]="false"></nz-option>
+        <nz-option nzLabel="Đã hoàn thành" [nzValue]="true"></nz-option>
+      </nz-select>
+      <nz-select [(ngModel)]="dataSearch.lstCateId" nzSize="default" nzMode="multiple" nzPlaceHolder="Chon danh mục" style="width: 40%" class="mt-1">
+        <nz-option *ngFor="let option of lstCate" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+      </nz-select>
+      <nz-select
+        nzShowSearch
+        [(ngModel)]="dataSearch.sortBy"
+        name="sortBy"
+        nzPlaceHolder="Sắp xếp theo"
+        style="width: 20%; margin-left: 5px"
+        class="mt-1"
+      >
+        <nz-option *ngFor="let item of lstSortBy" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+      </nz-select>
+      <nz-select nzShowSearch [(ngModel)]="dataSearch.orderBy" name="orderBy" nzPlaceHolder="Thứ tự sắp xếp" style="width: 20%; margin-left: 5px" v>
+        <nz-option *ngFor="let item of lstOrderBy" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+      </nz-select>
+      <br />
+      <button nz-button (click)="searchData(true)" nzType="primary" nzSize="default" nzShape="round" class="mt-1">
+        <span nz-icon nzType="search"></span>
+        Tìm kiếm
+      </button>
+    </div>
+    <h2>Danh sách truyện</h2>
+    <div class="list-item">
+      <div class="item" *ngFor="let item of listOfData" (click)="navigateToStory(item.id)">
+        <img width="100%" height="100%" [src]="item.avatar" alt="Image" style="border-radius: 20px" />
+        <div class="border-text" nz-popover [nzPopoverContent]="contentTemplate" nzPopoverPlacement="rightTop">
+          <p style="font-size: 16px">{{ item.name }}</p>
+          <p style="margin-top: -5px; font-size: 14px">Thể loại : {{ item.typeName }}</p>
+          <!-- <p style="margin-top: -10px; font-size: 14px">Danh mục : {{ item.lstCategoryName.join(', ') }}</p> -->
+          <div style="margin-top: -10px">
+            <p style="display: inline-block">
+              <span nz-icon nzType="group" nzTheme="outline"></span> {{ (item.chapterCount ? item.chapterCount : 0) | number }}
+            </p>
+            <p style="display: inline-block; margin-left: 10px"><span nz-icon nzType="eye" nzTheme="outline"></span> {{ item.totalView | number }}</p>
+            <p style="display: inline-block; margin-left: 10px; margin-right: 10px">
+              <span nz-icon nzType="heart" nzTheme="outline"></span> {{ (item.favoriteCount ? item.favoriteCount : 0) | number }}
+            </p>
+            <p style="display: inline-block">
+              <span nz-icon nzType="comment" nzTheme="outline"></span> {{ (item.commentCount ? item.commentCount : 0) | number }}
+            </p>
+          </div>
+        </div>
+        <ng-template #contentTemplate>
+          <div>
+            <div style="text-align: center">
+              <h2>{{ item.name }}</h2>
+              <p style="color: rgba(48, 48, 48, 0.595); margin-top: -17px">(Cập nhật lúc : {{ item.updatedAt | date : 'dd/MM/yyyy HH:mm' }} )</p>
+            </div>
+            <div>
+              <div style="font-size: 17px; color: rgb(78, 78, 78)">
+                <p><span nz-icon nzType="user" nzTheme="outline"></span> Tác giả : {{ item.author ? item.author : 'Đang cập nhật' }}</p>
+                <p><span nz-icon nzType="solution" nzTheme="outline"></span> Tên khác : {{ item.otherName ? item.otherName : 'Không' }}</p>
+                <p><span nz-icon nzType="wallet" nzTheme="outline"></span> Tình trạng : {{ item.finished ? 'Đã kết thúc' : 'Đang tiến hành' }}</p>
+                <p><span nz-icon nzType="form" nzTheme="outline"></span> Thể loại : {{ item.typeName }}</p>
+                <p><span nz-icon nzType="hdd" nzTheme="outline"></span> Danh mục : {{ item.lstCategoryName?.join(', ') }}</p>
+                <p><span nz-icon nzType="group" nzTheme="outline"></span> Số chương : {{ (item.chapterCount ? item.chapterCount : 0) | number }}</p>
+                <p><span nz-icon nzType="eye" nzTheme="outline"></span> Lượt xem : {{ item.totalView | number }}</p>
+                <p>
+                  <span nz-icon nzType="heart" nzTheme="outline"></span> Lượt thích : {{ (item.favoriteCount ? item.favoriteCount : 0) | number }}
+                </p>
+                <p><span nz-icon nzType="comment" nzTheme="outline"></span> Bình luận : {{ (item.commentCount ? item.commentCount : 0) | number }}</p>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+
+    <nz-pagination
+      class="mt-4"
+      [nzTotal]="total"
+      [(nzPageIndex)]="pageIndex"
+      [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="searchData()"
+      (nzPageSizeChange)="searchData(true)"
+      [nzShowTotal]="rangeTemplate"
+      nzShowSizeChanger
+      [nzPageSizeOptions]="lstPageSize"
+    >
+    </nz-pagination>
+    <ng-template #rangeTemplate let-range="range" let-total> truyện {{ range[0] }} - {{ range[1] }} trong tổng {{ total }} truyện </ng-template>
+  </nz-card>
+</div>

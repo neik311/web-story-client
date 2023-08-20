@@ -1,0 +1,173 @@
+<div class="main">
+  <nz-card style="width: 80%; margin-left: auto; margin-right: auto">
+    <div style="text-align: center">
+      <h1>{{ story.name }}</h1>
+      <p style="color: rgba(48, 48, 48, 0.595); margin-top: -20px">(Cập nhật lúc : {{ story.updatedAt | date : 'dd/MM/yyyy HH:mm' }} )</p>
+    </div>
+    <div class="story-detail">
+      <div class="img-avatar">
+        <img [src]="story.avatar" alt="" style="width: 60%; margin-left: 35%; margin-top: -370px; max-height: 470px" />
+      </div>
+      <div class="content-story">
+        <div style="font-size: 17px; color: rgb(78, 78, 78)">
+          <p><span nz-icon nzType="user" nzTheme="outline"></span> Tác giả : {{ story.author ? story.author : 'Đang cập nhật' }}</p>
+          <p><span nz-icon nzType="solution" nzTheme="outline"></span> Tên khác : {{ story.otherName ? story.otherName : 'Không' }}</p>
+          <p><span nz-icon nzType="wallet" nzTheme="outline"></span> Tình trạng : {{ story.finished ? 'Đã kết thúc' : 'Đang tiến hành' }}</p>
+          <p><span nz-icon nzType="form" nzTheme="outline"></span> Thể loại : {{ story.typeName }}</p>
+          <p><span nz-icon nzType="hdd" nzTheme="outline"></span> Danh mục : {{ story.lstCategoryName?.join(', ') }}</p>
+          <p><span nz-icon nzType="group" nzTheme="outline"></span> Số chương : {{ lstChapter.length | number }}</p>
+          <p><span nz-icon nzType="eye" nzTheme="outline"></span> Lượt xem : {{ story.totalView | number }}</p>
+          <p><span nz-icon nzType="heart" nzTheme="outline"></span> Lượt thích : {{ (story.favoriteCount ? story.favoriteCount : 0) | number }}</p>
+          <p><span nz-icon nzType="comment" nzTheme="outline"></span> Bình luận : {{ (story.commentCount ? story.commentCount : 0) | number }}</p>
+        </div>
+        <div>
+          <button
+            nz-button
+            nzType="primary"
+            nzGhost
+            style="margin-left: 10px"
+            *ngIf="story.startChapterId"
+            (click)="navigateToChapter(story.startChapterId)"
+          >
+            Bắt đầu đọc
+          </button>
+          <button
+            nz-button
+            nzType="primary"
+            nzGhost
+            style="margin-left: 10px"
+            *ngIf="story.nextChapterId"
+            (click)="navigateToChapter(story.nextChapterId)"
+          >
+            Đọc tiếp
+          </button>
+          <button nz-button nzType="text" style="height: 50px" *ngIf="!isFavorite" (click)="favoriteStory()">
+            <span nz-icon style="font-size: 25px" nzType="heart" nzTheme="outline"></span>Yêu thích
+          </button>
+          <button nz-button nzType="text" style="height: 50px" *ngIf="isFavorite" (click)="deleteFavoriteStory()">
+            <span nz-icon style="font-size: 25px; color: red" nzType="heart" nzTheme="fill"></span>Yêu thích
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="other-story">
+      <nz-tabset>
+        <nz-tab [nzTitle]="titleTemplate">
+          <ng-template #titleTemplate>
+            <span nz-icon nzType="book"></span>
+            Nội dung
+          </ng-template>
+          {{ story.content }}
+        </nz-tab>
+        <nz-tab [nzTitle]="titleTemplate1">
+          <ng-template #titleTemplate1>
+            <span nz-icon nzType="group"></span>
+            Danh sách chương
+          </ng-template>
+          <nz-table #basicTable [nzData]="lstChapter" [nzFrontPagination]="false">
+            <thead>
+              <tr>
+                <th class="header-chapter">Số chương</th>
+                <th class="header-chapter">Tên</th>
+                <th class="header-chapter">Ngày cập nhật</th>
+                <th class="header-chapter">Lượt xem</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data">
+                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)">{{ data.chapterNumber }}</td>
+                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)">{{ data.name }}</td>
+                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)">
+                  {{ (data.updatedAt ? data.updatedAt : data.createdAt) | date : 'dd/MM/yyyy HH:mm' }}
+                </td>
+                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)">{{ data.viewCount }}</td>
+              </tr>
+            </tbody>
+          </nz-table>
+        </nz-tab>
+        <nz-tab [nzTitle]="titleTemplate2">
+          <ng-template #titleTemplate2>
+            <span nz-icon nzType="comment"></span>
+            Bình luận
+          </ng-template>
+          <div>
+            <textarea rows="2" style="width: 90%" nz-input placeholder="Nhập bình luận" [(ngModel)]="currentComment" name="currentComment"></textarea>
+            <span
+              nz-icon
+              nzType="send"
+              nzTheme="outline"
+              style="font-size: 25px; color: rgb(59, 59, 244); margin-bottom: 15px; margin-left: 15px; cursor: pointer"
+              (click)="sendComment()"
+            ></span>
+          </div>
+          <nz-list [nzDataSource]="lstComment" [nzRenderItem]="item" [nzItemLayout]="'horizontal'">
+            <ng-template #item let-item>
+              <nz-comment [nzAuthor]="item.username" [nzDatetime]="formatDate(item.createdAt)">
+                <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="item.userAvatar"></nz-avatar>
+                <nz-comment-content>
+                  <p>{{ item.content }}</p>
+                </nz-comment-content>
+                <!-- <nz-comment-action style="height: 20px !important"> -->
+                <div style="color: rgba(54, 54, 54, 0.85); word-wrap: break-word; font-size: 13px; cursor: pointer">
+                  <p style="display: inline-block" (click)="feedbackComment(item.id)">Phản hồi</p>
+                  <p *ngIf="parentId === item.id" style="display: inline-block; margin-left: 10px" (click)="cancelFeedbackComment()">Huỷ</p>
+                </div>
+                <!-- </nz-comment-action> -->
+
+                <ng-container *ngIf="item.__children__ && item.__children__.length">
+                  <ng-template ngFor let-child [ngForOf]="item.__children__">
+                    <nz-comment
+                      *ngIf="!child.isDeleted"
+                      [nzAuthor]="child.username"
+                      [nzDatetime]="formatDate(child.createdAt)"
+                      style="margin-top: -10px"
+                    >
+                      <nz-avatar nz-comment-avatar nzIcon="user" [nzSrc]="child.userAvatar"></nz-avatar>
+                      <nz-comment-content>
+                        <p>{{ child.content }}</p>
+                      </nz-comment-content>
+                    </nz-comment>
+                  </ng-template>
+                </ng-container>
+
+                <div *ngIf="parentId === item.id">
+                  <textarea
+                    rows="2"
+                    style="width: 90%"
+                    nz-input
+                    placeholder="Nhập bình luận"
+                    [(ngModel)]="currentFeedback"
+                    name="currentFeedback"
+                  ></textarea>
+                  <span
+                    nz-icon
+                    nzType="send"
+                    nzTheme="outline"
+                    style="font-size: 25px; color: rgb(59, 59, 244); margin-bottom: 15px; margin-left: 15px; cursor: pointer"
+                    (click)="sendFeedbackComment()"
+                  ></span>
+                </div>
+              </nz-comment>
+            </ng-template>
+          </nz-list>
+
+          <nz-pagination
+            class="mt-2"
+            [nzTotal]="pagComment.total"
+            [(nzPageIndex)]="pagComment.pageIndex"
+            [(nzPageSize)]="pagComment.pageSize"
+            (nzPageIndexChange)="loadComment()"
+            (nzPageSizeChange)="loadComment(true)"
+            [nzShowTotal]="rangeTemplate"
+            nzShowSizeChanger
+            [nzPageSizeOptions]="pagComment.lstPageSize"
+          >
+          </nz-pagination>
+          <ng-template #rangeTemplate let-range="range" let-total>
+            Dòng {{ range[0] }} đến {{ range[1] }} trong tổng {{ total }} bình luận chính
+          </ng-template>
+        </nz-tab>
+      </nz-tabset>
+    </div>
+  </nz-card>
+</div>

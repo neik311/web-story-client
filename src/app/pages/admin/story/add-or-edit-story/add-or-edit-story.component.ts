@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core'
 import { AngularFireStorage } from '@angular/fire/compat/storage'
-import { ApiService, NotifyService } from '../../../../services'
+import { ApiService, CoreService, NotifyService } from '../../../../services'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { enumData } from '../../../../core/enumData'
 
@@ -13,13 +13,14 @@ export class AddOrEditStoryComponent implements OnInit {
     name: null,
     otherName: null,
     author: null,
-    finished: null,
+    finished: false,
     content: null,
     lstCategoryId: [],
   }
   avatarImage: any = ''
   isCreate = true
-  lstCategory: any = []
+  lstCategory: any[] = []
+  lstStoryType: any[] = []
   modalTitle = 'Thêm mới truyện'
 
   constructor(
@@ -27,10 +28,12 @@ export class AddOrEditStoryComponent implements OnInit {
     private apiService: ApiService,
     private dialogRef: MatDialogRef<AddOrEditStoryComponent>,
     private fireStorage: AngularFireStorage,
+    private coreService: CoreService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {}
 
   ngOnInit() {
+    this.lstStoryType = this.coreService.convertObjToArray(enumData.StoryType)
     this.loadDataSelectBox()
     if (this.data && this.data.id) {
       this.dataObject = { ...this.data }
@@ -42,6 +45,14 @@ export class AddOrEditStoryComponent implements OnInit {
   async onSave() {
     this.notifyService.showloading()
     if (this.avatarImage) this.dataObject.avatar = await this.uploadImageToFirebase()
+    if (!this.dataObject.avatar) {
+      this.notifyService.showError('Hãy chọn ảnh đại diện')
+      return
+    }
+    if (!this.dataObject.lstCategoryId || this.dataObject.lstCategoryId.length === 0) {
+      this.notifyService.showError('Hãy chọn một danh mục')
+      return
+    }
     // console.log(this.dataObject)
     if (this.isCreate === false) {
       this.updateData()
@@ -81,7 +92,6 @@ export class AddOrEditStoryComponent implements OnInit {
   }
 
   onChangeFile(e: any) {
-    console.log(e.target.files[0])
     this.avatarImage = e.target.files[0]
     const files = e.target.files
     if (files.length === 0) return

@@ -1,0 +1,32 @@
+.main {
+  background-color: azure;
+}
+
+.story-detail {
+  // display: inline-block;
+  width: 100%;
+}
+
+.img-avatar {
+  display: inline-block;
+  width: 50%;
+}
+
+.content-story {
+  width: 50%;
+  display: inline-block;
+  // font-size: 18px;
+}
+
+.other-story {
+  // margin-left: 20%;
+  margin-top: 30px;
+  width: 64%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header-chapter {
+  background-color: white !important;
+  color: black !important;
+}

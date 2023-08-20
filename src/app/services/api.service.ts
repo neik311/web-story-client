@@ -10,7 +10,18 @@ export class ApiService {
   AUTH = {
     LOGIN: `${environment.apiUrl}/auth/login`,
     REGISTER: `${environment.apiUrl}/auth/register`,
+    GET_INFO: `${environment.apiUrl}/auth/get_info_user`,
+    VERIFY: `${environment.apiUrl}/auth/verify`,
+    PAGINATION: `${environment.apiUrl}/auth/pagination`,
+    DELETE: `${environment.apiUrl}/auth/update_active`,
+    UPDATE: `${environment.apiUrl}/auth/update_data`,
+    FORGOT_PASSWORD: `${environment.apiUrl}/auth/forgot-password`,
   }
+
+  EMAIL = {
+    SEND_FORGOT_PW: `${environment.apiUrl}/email/send_forgot_password`,
+  }
+
   CATEGORY = {
     FIND: `${environment.apiUrl}/category/find`,
     CREATE: `${environment.apiUrl}/category/create_data`,
@@ -29,11 +40,32 @@ export class ApiService {
 
   CHAPTER = {
     GET_CHAPTER_BY_STORY: `${environment.apiUrl}/chapter/get_chapter_by_story`,
+    GET_CHAPTER_BY_Id: `${environment.apiUrl}/chapter/get_chapter_by_id`,
     CREATE: `${environment.apiUrl}/chapter/create_data`,
     DELETE: `${environment.apiUrl}/chapter/update_active`,
     UPDATE: `${environment.apiUrl}/chapter/update_data`,
     PAGINATION: `${environment.apiUrl}/chapter/pagination`,
     PLUS_VIEW: `${environment.apiUrl}/chapter/plus_view_chapter`,
+    GET_CHAPTER_PRINT: `${environment.apiUrl}/chapter/get_chapter_print`,
+  }
+
+  FAVORITE = {
+    GET_BY_USER: `${environment.apiUrl}/favorite/get_all`,
+    CREATE: `${environment.apiUrl}/favorite/create_data`,
+    DELETE: `${environment.apiUrl}/favorite/update_active`,
+  }
+
+  HISTORY = {
+    GET_BY_USER: `${environment.apiUrl}/history/get_all`,
+    CREATE: `${environment.apiUrl}/history/create_data`,
+    DELETE: `${environment.apiUrl}/history/update_active`,
+  }
+
+  COMMENT = {
+    CREATE: `${environment.apiUrl}/comment/create_data`,
+    DELETE: `${environment.apiUrl}/comment/update_active`,
+    UPDATE: `${environment.apiUrl}/comment/update_data`,
+    PAGINATION: `${environment.apiUrl}/comment/pagination`,
   }
 
   //#endregion

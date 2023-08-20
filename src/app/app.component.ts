@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { AuthenticationService } from './services'
+import { ApiService, AuthenticationService } from './services'
 import { Router } from '@angular/router'
 import { User } from './models/user.model'
 
@@ -9,14 +9,17 @@ import { User } from './models/user.model'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  currentUser: User | undefined
-  constructor(private authService: AuthenticationService, private router: Router) {}
+  constructor(private authService: AuthenticationService, private apiService: ApiService) {}
 
   ngOnInit() {
-    // this.currentUser = this.authService.currentUserValue
-    // console.log(this.currentUser)
-    // if (!this.authService.currentUserValue) {
-    //   this.router.navigate(['login'])
-    // }
+    const currentUser = this.authService.currentUserValue
+    console.log(currentUser)
+    if (!currentUser || !currentUser?.accessToken) {
+      this.authService.logout()
+      return
+    }
+    this.apiService.post(this.apiService.AUTH.GET_INFO, {}).then((res: any) => {
+      this.authService.login({ ...res, accessToken: currentUser?.accessToken })
+    })
   }
 }
