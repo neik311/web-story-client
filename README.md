@@ -1,4 +1,4 @@
-## Trang web đọc truyện trực 
+## Trang web đọc truyện trực tuyến
 - Sử dụng Angular 15.0.4
 - Back end : [Sử dụng NestJs](https://github.com/nvkien123/web-story-api)
 ## Người dùng
