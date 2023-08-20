@@ -50,6 +50,10 @@ import { AddOrEditStoryComponent } from './story/add-or-edit-story/add-or-edit-s
 import { ChapterComponent } from './chapter/chapter.component'
 import { AddOrEditChapterComponent } from './chapter/add-or-edit-chapter/add-or-edit-chapter.component'
 import { CommentComponent } from './comment/comment.component'
+import { UserComponent } from './user/user.component'
+import { ChapterDetailComponent } from './chapter/chapter-detail/chapter-detail.component'
+import { StoryDetailComponent } from './story/story-detail/story-detail.component'
+import { StoryPrintComponent } from './story/story-print/story-print.component'
 
 @NgModule({
   declarations: [
@@ -60,6 +64,10 @@ import { CommentComponent } from './comment/comment.component'
     ChapterComponent,
     AddOrEditChapterComponent,
     CommentComponent,
+    UserComponent,
+    ChapterDetailComponent,
+    StoryDetailComponent,
+    StoryPrintComponent,
   ],
   imports: [
     CommonModule,

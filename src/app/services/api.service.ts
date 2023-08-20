@@ -12,7 +12,16 @@ export class ApiService {
     REGISTER: `${environment.apiUrl}/auth/register`,
     GET_INFO: `${environment.apiUrl}/auth/get_info_user`,
     VERIFY: `${environment.apiUrl}/auth/verify`,
+    PAGINATION: `${environment.apiUrl}/auth/pagination`,
+    DELETE: `${environment.apiUrl}/auth/update_active`,
+    UPDATE: `${environment.apiUrl}/auth/update_data`,
+    FORGOT_PASSWORD: `${environment.apiUrl}/auth/forgot-password`,
   }
+
+  EMAIL = {
+    SEND_FORGOT_PW: `${environment.apiUrl}/email/send_forgot_password`,
+  }
+
   CATEGORY = {
     FIND: `${environment.apiUrl}/category/find`,
     CREATE: `${environment.apiUrl}/category/create_data`,
@@ -37,6 +46,7 @@ export class ApiService {
     UPDATE: `${environment.apiUrl}/chapter/update_data`,
     PAGINATION: `${environment.apiUrl}/chapter/pagination`,
     PLUS_VIEW: `${environment.apiUrl}/chapter/plus_view_chapter`,
+    GET_CHAPTER_PRINT: `${environment.apiUrl}/chapter/get_chapter_print`,
   }
 
   FAVORITE = {

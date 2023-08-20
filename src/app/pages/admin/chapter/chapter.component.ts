@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { enumData } from '../../../core/enumData'
 import { ApiService, CoreService, NotifyService } from '../../../services'
 import { AddOrEditChapterComponent } from './add-or-edit-chapter/add-or-edit-chapter.component'
+import { ChapterDetailComponent } from './chapter-detail/chapter-detail.component'
 // import { AddOrEditStoryComponent } from './add-or-edit-story/add-or-edit-story.component'
 
 @Component({
@@ -93,7 +94,15 @@ export class ChapterComponent implements OnInit {
       })
   }
 
-  clickDetail(data: any) {}
+  clickDetail(data: any) {
+    this.dialog
+      .open(ChapterDetailComponent, {
+        disableClose: false,
+        data: { ...data, storyId: this.storyId, type: this.story.type, storyName: this.story.name },
+      })
+      .afterClosed()
+      .subscribe()
+  }
 
   onActive(data: any) {
     this.notifyService.showloading()

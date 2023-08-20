@@ -43,7 +43,7 @@ export class HistoryComponent implements OnInit {
 
   async filterDataSearch(dataSearch?: any) {
     if (!dataSearch) dataSearch = this.dataSearch
-    const where: any = {}
+    const where: any = { isDeleted: false }
     if (dataSearch.name && dataSearch.name !== '') where.name = dataSearch.name
     return where
   }

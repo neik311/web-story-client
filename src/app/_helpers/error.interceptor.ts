@@ -13,6 +13,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err) => {
         this.notifyService.hideloading()
+        if (err.error.path === '/auth/login') {
+          this.notifyService.showWarning(err.error.message)
+          return throwError(() => new Error(error))
+        }
         if (err.status === 401) {
           if (err.error.message === 'Unauthorized' || err.statusText === 'Unauthorized') {
             this.authenticationService.logout()

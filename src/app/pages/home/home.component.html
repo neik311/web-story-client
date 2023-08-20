@@ -13,7 +13,7 @@
     <div>
       <h2>Truyện đề cử</h2>
       <div class="card" style="border: 1px solid rgb(124, 124, 124)">
-        <p-carousel [value]="products" [numVisible]="5" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+        <p-carousel [value]="lstTopProduct" [numVisible]="5" [numScroll]="1" [responsiveOptions]="responsiveOptions">
           <ng-template let-product pTemplate="item">
             <div class="product-item">
               <div class="list-item">
@@ -34,7 +34,7 @@
       <div class="list-item">
         <div class="item" *ngFor="let item of listOfData" (click)="navigateToStory(item.id)">
           <img width="100%" height="100%" [src]="item.avatar" alt="Image" style="border-radius: 20px" />
-          <div class="border-text">
+          <div class="border-text" nz-popover [nzPopoverContent]="contentTemplate" nzPopoverPlacement="rightTop">
             <p style="font-size: 16px">{{ item.name }}</p>
             <p style="margin-top: -5px; font-size: 14px">Thể loại : {{ item.typeName }}</p>
             <!-- <p style="margin-top: -10px; font-size: 14px">Danh mục : {{ item.lstCategoryName.join(', ') }}</p> -->
@@ -53,6 +53,31 @@
               </p>
             </div>
           </div>
+          <ng-template #contentTemplate>
+            <div>
+              <div style="text-align: center">
+                <h2>{{ item.name }}</h2>
+                <p style="color: rgba(48, 48, 48, 0.595); margin-top: -17px">(Cập nhật lúc : {{ item.updatedAt | date : 'dd/MM/yyyy HH:mm' }} )</p>
+              </div>
+              <div>
+                <div style="font-size: 17px; color: rgb(78, 78, 78)">
+                  <p><span nz-icon nzType="user" nzTheme="outline"></span> Tác giả : {{ item.author ? item.author : 'Đang cập nhật' }}</p>
+                  <p><span nz-icon nzType="solution" nzTheme="outline"></span> Tên khác : {{ item.otherName ? item.otherName : 'Không' }}</p>
+                  <p><span nz-icon nzType="wallet" nzTheme="outline"></span> Tình trạng : {{ item.finished ? 'Đã kết thúc' : 'Đang tiến hành' }}</p>
+                  <p><span nz-icon nzType="form" nzTheme="outline"></span> Thể loại : {{ item.typeName }}</p>
+                  <p><span nz-icon nzType="hdd" nzTheme="outline"></span> Danh mục : {{ item.lstCategoryName?.join(', ') }}</p>
+                  <p><span nz-icon nzType="group" nzTheme="outline"></span> Số chương : {{ (item.chapterCount ? item.chapterCount : 0) | number }}</p>
+                  <p><span nz-icon nzType="eye" nzTheme="outline"></span> Lượt xem : {{ item.totalView | number }}</p>
+                  <p>
+                    <span nz-icon nzType="heart" nzTheme="outline"></span> Lượt thích : {{ (item.favoriteCount ? item.favoriteCount : 0) | number }}
+                  </p>
+                  <p>
+                    <span nz-icon nzType="comment" nzTheme="outline"></span> Bình luận : {{ (item.commentCount ? item.commentCount : 0) | number }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>

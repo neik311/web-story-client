@@ -1,0 +1,49 @@
+<!-- <div matDialogContent> -->
+<div id="print-section" class="printsection" style="page-break-before: always">
+  <ng-container>
+    <div class="printsection" style="page-break-before: always; break-after: page">
+      <div nz-row>
+        <div nz-col class="gutter-row" [nzSpan]="24">
+          <div [style]="{ width: '90%', marginLeft: '5%', marginTop: '10px', }">
+            <!-- <img [src]="dataObject.avatar" style="width: 100%" backgroundImage: getUrlBackground(dataObject.avatar) /> -->
+            <h1 style="text-align: center; margin-bottom: 20px; margin-top: 20px">
+              {{ dataObject.name }}
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngFor="let item of lstChapter">
+    <div class="printsection" style="page-break-before: always; break-after: page">
+      <div nz-row>
+        <div nz-col class="gutter-row" [nzSpan]="24">
+          <div style="width: 90%; margin-left: 5%">
+            <h1 style="text-align: center; margin-bottom: 20px; margin-top: 20px">
+              Chương {{ item.chapterNumber }} {{ item.name ? '. ' + item.name : '' }}
+            </h1>
+            <div *ngIf="dataObject.type === 'word'" [style]="{ fontSize: fontSize }" [innerHTML]="item.content"></div>
+            <div *ngIf="dataObject.type === 'comic'">
+              <img
+                *ngFor="let image of item.content.split(', ')"
+                [src]="image"
+                alt=""
+                style="width: 70%; margin-left: 30%; transform: translateX(-20%)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<!-- </div> -->
+
+<nz-row matDialogActions>
+  <nz-col nzSpan="24" class="text-center">
+    <button nzShape="round" nz-button nzType="default" (click)="closeDialog(1)"><span nz-icon nzType="lock"></span> Đóng</button>
+    <button nzShape="round" nz-button nzType="primary" class="ml-2" [useExistingCss]="true" printSectionId="print-section" ngxPrint>
+      <span nz-icon nzType="printer"></span> In Truyện
+    </button>
+  </nz-col>
+</nz-row>

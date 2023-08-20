@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
 import { ApiService, AuthenticationService, CoreService, NotifyService } from '../../services'
 import { FirebaseUpload } from '../../_helpers/firebaseUpload'

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { User } from '../../models/user.model'
-import { AuthenticationService } from '../../services'
+import { ApiService, AuthenticationService, NotifyService } from '../../services'
 import { Router } from '@angular/router'
 import { enumData } from '../../core/enumData'
+import { FirebaseUpload } from '../../_helpers/firebaseUpload'
 
 @Component({
   selector: 'app-header',
@@ -12,12 +13,64 @@ import { enumData } from '../../core/enumData'
 export class HeaderComponent implements OnInit {
   currentUser: User | undefined
   textSearch: string = ''
-  constructor(private authService: AuthenticationService, private router: Router) {}
+  isVisible = false
+  avatarImage: any
+  avatarUrl: any = ''
+  constructor(
+    private notifyService: NotifyService,
+    private apiService: ApiService,
+    private authService: AuthenticationService,
+    private firebaseUpload: FirebaseUpload,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
-    console.log(window.location.href.includes('admin'))
+    // console.log(window.location.href.includes('admin'))
     this.currentUser = this.authService.currentUserValue
     console.log(this.currentUser)
+  }
+
+  showModal(): void {
+    this.isVisible = true
+    this.avatarUrl = this.authService.currentUserValue?.avatar
+  }
+
+  onSearch() {
+    if (this.textSearch.trim() === '') return
+    this.router.navigate(['search'], { queryParams: { name: this.textSearch } })
+  }
+
+  onChangeFile(e: any) {
+    this.avatarImage = e.target.files[0]
+    const files = e.target.files
+    if (files.length === 0) return
+
+    const mimeType = files[0].type
+    if (mimeType.match(/image\/*/) == null) {
+      return
+    }
+
+    const reader = new FileReader()
+    reader.readAsDataURL(files[0])
+    reader.onload = (_event) => {
+      this.avatarUrl = reader.result
+    }
+  }
+
+  async handleOk() {
+    this.notifyService.showloading()
+    let avatar = this.avatarUrl
+    if (this.avatarImage) avatar = (await this.firebaseUpload.uploadImageAvatar(this.avatarImage, this.getUsername())) || ''
+    this.apiService.post(this.apiService.AUTH.UPDATE, { avatar }).then((res) => {
+      const currentUser = this.authService.currentUserValue
+      this.authService.login({ ...currentUser, avatar })
+      this.notifyService.hideloading()
+      this.isVisible = false
+    })
+  }
+
+  handleCancel(): void {
+    this.isVisible = false
   }
 
   navigate(link: any) {
@@ -29,7 +82,7 @@ export class HeaderComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    return this.currentUser?.roleCode === enumData.Role.Admin.code
+    return this.authService.currentUserValue?.roleCode === enumData.Role.Admin.code
   }
 
   isUrlAdmin(): boolean {

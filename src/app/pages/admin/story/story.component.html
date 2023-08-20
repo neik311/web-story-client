@@ -6,7 +6,33 @@
           <input nz-input [(ngModel)]="dataSearch.name" name="name" placeholder="Lọc tên" />
         </nz-col>
         <nz-col nzSpan="6">
-          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.isDeleted" name="isDeleted" nzPlaceHolder="Chọn trạng thái">
+          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.type" name="type" nzPlaceHolder="Chọn loại truyện">
+            <nz-option *ngFor="let item of lstStoryType" [nzLabel]="item.name" [nzValue]="item.code"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.finished" name="finished" nzPlaceHolder="Chọn trạng thái">
+            <nz-option nzLabel="Đang tiến hành" [nzValue]="false"></nz-option>
+            <nz-option nzLabel="Đã hoàn thành" [nzValue]="true"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select [(ngModel)]="dataSearch.lstCateId" nzSize="default" nzMode="multiple" nzPlaceHolder="Chon danh mục">
+            <nz-option *ngFor="let option of lstCate" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select nzShowSearch [(ngModel)]="dataSearch.sortBy" name="sortBy" nzPlaceHolder="Sắp xếp theo" class="mt-1">
+            <nz-option *ngFor="let item of lstSortBy" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select nzShowSearch [(ngModel)]="dataSearch.orderBy" name="orderBy" nzPlaceHolder="Thứ tự sắp xếp" class="mt-1">
+            <nz-option *ngFor="let item of lstOrderBy" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
+          </nz-select>
+        </nz-col>
+        <nz-col nzSpan="6">
+          <nz-select nzShowSearch nzAllowClear [(ngModel)]="dataSearch.isDeleted" name="isDeleted" nzPlaceHolder="Chọn trạng thái" class="mt-1">
             <nz-option *ngFor="let item of dataFilterStatus" [nzLabel]="item.name" [nzValue]="item.value"></nz-option>
           </nz-select>
         </nz-col>
@@ -46,7 +72,7 @@
           <th>Lượt xem</th>
           <th>Đã hoàn thành</th>
           <th nzRight style="width: 200px">Trạng thái</th>
-          <th nzRight style="width: 220px">Tác vụ</th>
+          <th nzRight style="width: 250px">Tác vụ</th>
         </tr>
       </thead>
       <tbody>
@@ -102,7 +128,7 @@
                 (click)="navigateToChapter(data.id)"
                 nzShape="circle"
                 nz-tooltip
-                nzTooltipTitle="Quản lý chapter"
+                nzTooltipTitle="Quản lý chương"
                 nz-button
                 class="btn-primary mr-1 mt-1"
               >
@@ -121,6 +147,10 @@
                 <span nz-icon nzType="comment"></span>
               </button>
             </nz-badge>
+
+            <button (click)="clickPrint(data)" nzShape="circle" nz-tooltip nzTooltipTitle="In truyện" nz-button class="btn-primary mr-1 mt-1">
+              <span nz-icon nzType="printer"></span>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -139,4 +169,14 @@
     </nz-pagination>
     <ng-template #rangeTemplate let-range="range" let-total> Dòng {{ range[0] }} đến {{ range[1] }} trong tổng {{ total }} dữ liệu </ng-template>
   </nz-row>
+
+  <nz-modal [(nzVisible)]="isVisible" nzTitle="Ngưng hoạt động truyện" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent style="font-size: 18px">
+      <p>
+        Ngưng hoạt động truyện sẽ ngưng hoạt động chương truyện và bình luận tương ứng, lịch sử và yêu thích của người dùng có liên quan cũng sẽ bị
+        ẩn.
+      </p>
+      <p>Bạn có chắn chắn muốn thực hiện ?</p>
+    </ng-container>
+  </nz-modal>
 </nz-card>

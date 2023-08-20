@@ -69,13 +69,13 @@ export class StoryComponent implements OnInit {
   }
 
   favoriteStory() {
-    this.apiService.post(this.apiService.FAVORITE.CREATE, { storyId: this.storyId }).then((res: any) => {
+    this.apiService.post(this.apiService.FAVORITE.CREATE, { storyId: this.story.id }).then((res: any) => {
       this.isFavorite = true
     })
   }
 
   deleteFavoriteStory() {
-    this.apiService.post(this.apiService.FAVORITE.DELETE, { storyId: this.storyId }).then((res: any) => {
+    this.apiService.post(this.apiService.FAVORITE.DELETE, { storyId: this.story.id }).then((res: any) => {
       this.isFavorite = false
     })
   }

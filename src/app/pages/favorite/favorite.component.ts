@@ -43,7 +43,7 @@ export class FavoriteComponent implements OnInit {
 
   async filterDataSearch(dataSearch?: any) {
     if (!dataSearch) dataSearch = this.dataSearch
-    const where: any = {}
+    const where: any = { isDeleted: false }
     if (dataSearch.name && dataSearch.name !== '') where.name = dataSearch.name
     return where
   }
@@ -51,9 +51,9 @@ export class FavoriteComponent implements OnInit {
   navigateToStory(storyId: string) {
     this.router.navigate([`story/${storyId}`])
   }
-  deleteFavorite(historyId: string) {
+  deleteFavorite(item: any) {
     this.notifyService.showloading()
-    this.apiService.post(this.apiService.FAVORITE.DELETE, { id: historyId }).then((res: any) => {
+    this.apiService.post(this.apiService.FAVORITE.DELETE, { storyId: item.storyId, userId: item.userId }).then((res: any) => {
       if (res) {
         this.notifyService.showSuccess('Xóa yêu thích thành công')
         this.searchData()

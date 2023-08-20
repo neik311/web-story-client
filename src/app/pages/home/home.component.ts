@@ -11,14 +11,14 @@ import { Router } from '@angular/router'
 })
 export class HomeComponent implements OnInit {
   pageIndex = enumData.Page.pageIndex
-  pageSize = enumData.Page.pageSize
+  pageSize = 20
   lstPageSize = enumData.Page.lstPageSize
   total = enumData.Page.total
   pageSizeMax = enumData.Page.pageSizeMax
   loading = true
   dataSearch: any = {}
   listOfData: any[] = []
-  products: any[] = []
+  lstTopProduct: any[] = []
 
   responsiveOptions: any[] = []
   constructor(
@@ -53,10 +53,12 @@ export class HomeComponent implements OnInit {
   }
 
   loadSlideProduct() {
-    this.apiService.post(this.apiService.STORY.PAGINATION, { where: {}, skip: 0, take: 10 }).then((res: any) => {
-      this.products = res[0]
-      this.notifyService.hideloading()
-    })
+    this.apiService
+      .post(this.apiService.STORY.PAGINATION, { where: { sortBy: 'totalView', orderBy: 'DESC', isDeleted: false }, skip: 0, take: 8 })
+      .then((res: any) => {
+        this.lstTopProduct = res[0]
+        this.notifyService.hideloading()
+      })
   }
 
   navigateToStory(storyId: string) {
@@ -64,7 +66,15 @@ export class HomeComponent implements OnInit {
   }
 
   async searchData(reset = false) {
-    this.apiService.post(this.apiService.STORY.PAGINATION, { where: {}, skip: 0, take: 10 }).then((res: any) => {
+    this.notifyService.showloading()
+    if (reset) this.pageIndex = 1
+    this.loading = true
+    const dataSearch = {
+      where: { isDeleted: false },
+      skip: (this.pageIndex - 1) * this.pageSize,
+      take: this.pageSize,
+    }
+    this.apiService.post(this.apiService.STORY.PAGINATION, dataSearch).then((res: any) => {
       this.listOfData = res[0]
       this.total = res[1]
       this.notifyService.hideloading()
