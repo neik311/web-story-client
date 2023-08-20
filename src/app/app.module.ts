@@ -46,7 +46,6 @@ import { ErrorInterceptor } from './_helpers/error.interceptor'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { InAppRootOverlayContainer } from './in-app-root-overlay-container'
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component'
 import { ApiService, AuthenticationService, CoreService, NotifyService } from './services'
 import { HeaderComponent } from './components/header/header.component'
 import { FooterComponent } from './components/footer/footer.component'
@@ -76,7 +75,6 @@ export class MaterialModule {}
 @NgModule({
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
     HeaderComponent,
     FooterComponent,
     HomeComponent,

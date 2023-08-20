@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 })
 export class SearchStoryComponent implements OnInit {
   pageIndex = enumData.Page.pageIndex
-  pageSize = enumData.Page.pageSize
+  pageSize = 20
   lstPageSize = enumData.Page.lstPageSize
   total = enumData.Page.total
   pageSizeMax = enumData.Page.pageSizeMax
