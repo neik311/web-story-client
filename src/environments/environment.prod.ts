@@ -1,9 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3800',
-  // backEnd: 'http://localhost:3200',
-  // authApi: 'https://dms-pro-auth-api.apetechs.link',
-  // coreApi: 'https://dms-pro-api-core.apetechs.link',
+  apiUrl: 'http://192.168.2.22:3800',
   firebaseConfig: {
     apiKey: 'AIzaSyCHsiYO33c3aLh8a1-uZnmc9R_oBg_ZpHw',
     authDomain: 'web-story-5464b.firebaseapp.com',
