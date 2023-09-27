@@ -6,9 +6,6 @@ export const environment = {
   production: false,
   // authApi: 'http://localhost:3401',
   apiUrl: 'http://localhost:3800',
-  // backEnd: 'http://localhost:3200',
-  // authApi: 'https://dms-pro-auth-api.apetechs.link',
-  // coreApi: 'https://dms-pro-api-core.apetechs.link',
   firebaseConfig: {
     apiKey: 'AIzaSyCHsiYO33c3aLh8a1-uZnmc9R_oBg_ZpHw',
     authDomain: 'web-story-5464b.firebaseapp.com',
