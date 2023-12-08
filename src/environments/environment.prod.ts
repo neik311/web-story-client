@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   apiUrl: 'http://192.168.2.22:3800',
+  clientId:'AUsZZIuM1wCEFVwgrXGpw0t_XhfI6dOfiCyrOplT5gBThQZAQ4aCfZJG-ZHJNXLM3KwBd1fjs3GU-eF2',
   firebaseConfig: {
     apiKey: 'AIzaSyCHsiYO33c3aLh8a1-uZnmc9R_oBg_ZpHw',
     authDomain: 'web-story-5464b.firebaseapp.com',

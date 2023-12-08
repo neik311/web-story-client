@@ -11,15 +11,23 @@
         <nz-form-item nzFlex>
           <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Số chương</nz-form-label>
           <nz-form-control [nzSm]="22" [nzXs]="24" nzErrorTip="Vui lòng nhập STT chapter">
-            <input nz-input placeholder="Nhập số thứ tự chapter" [(ngModel)]="dataObject.chapterNumber" name="chapterNumber" required />
+            <input nz-input type="number" min="0" placeholder="Nhập số thứ tự chapter" [(ngModel)]="dataObject.chapterNumber" name="chapterNumber" required />
           </nz-form-control>
         </nz-form-item>
       </div>
       <div nz-col [nzSpan]="8">
         <nz-form-item nzFlex>
-          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Tên chapter</nz-form-label>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Tên chương</nz-form-label>
           <nz-form-control [nzSm]="22" [nzXs]="24">
-            <input nz-input placeholder="Nhập tên chapter" [(ngModel)]="dataObject.name" name="name" />
+            <input nz-input placeholder="Nhập tên chương" [(ngModel)]="dataObject.name" name="name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item nzFlex>
+          <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left">Giá đọc (dollar)</nz-form-label>
+          <nz-form-control [nzSm]="22" [nzXs]="24">
+            <input nz-input numbersDecimal  placeholder="Nhập số tiền" [(ngModel)]="dataObject.price" name="price"  />
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -54,7 +62,7 @@
   <nz-row matDialogActions>
     <nz-col nzSpan="24" class="text-center">
       <button nzShape="round" nz-button nzType="default" (click)="closeDialog(0)" class="mr-2"><span nz-icon nzType="lock"></span>Đóng</button>
-      <button nzShape="round" nz-button [disabled]="!frmAdd.form.valid" nzType="primary" (click)="onSave()">
+      <button nzShape="round" nz-button [disabled]="!frmAdd.form.valid || (data.type == 'comic' && lstImage.length === 0)" nzType="primary" (click)="onSave()">
         <span nz-icon nzType="save"></span>Lưu
       </button>
     </nz-col>

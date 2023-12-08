@@ -1,0 +1,54 @@
+<div class="main">
+    <nz-card style="width: 80%; margin-left: auto; margin-right: auto">
+        <h2>Số dư : {{currentUser?.amount}} Dollar</h2>
+        <input nz-input numbersDecimal style="margin-bottom: 20px; width: 200px;" placeholder="Nhập số tiền (USD)"
+            [(ngModel)]="amount" name="amount" />
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        <nz-tabset>
+            <nz-tab nzTitle="Lịch sử thanh toán">
+                <nz-table #basicTable [nzData]="lstHistory" [nzFrontPagination]="false" style="width: 600px;">
+                    <thead>
+                      <tr>
+                        <th class="header-chapter">Thời gian</th>
+                        <th class="header-chapter">Số tiền</th>
+                        <th class="header-chapter">Loại</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of basicTable.data">
+                        <td align="center" >{{  data.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
+                        <td align="center" >{{ +data.amount }} usd</td>
+                        <td align="center" >{{ data.typeName  }}</td>                   
+                      </tr>
+                    </tbody>
+                  </nz-table>
+            </nz-tab>
+            <nz-tab nzTitle="Chương đã mua">
+              <nz-select nzShowSearch nzAllowClear style="width: 300px;" [(ngModel)]="curStoryId" name="curStoryId" nzPlaceHolder="Chọn truyện" (ngModelChange)="onChangeStory()">
+                <nz-option *ngFor="let item of lstStory" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+              </nz-select>
+                <nz-table #basicTable2 [nzData]="lstChapter" [nzFrontPagination]="false" style="width: 1000px;">
+                    <thead>
+                      <tr>
+                        <th class="header-chapter">Tên truyện</th>
+                        <th class="header-chapter">Số chương</th>
+                        <th class="header-chapter">Tên chương</th>
+                        <th class="header-chapter">Giá mua</th>
+                        <th class="header-chapter">Thời gian</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of basicTable2.data">
+                        <td align="center" (click)="navigateToChapter(data.storyId, data.chapterId)">{{  data.storyName}}</td>
+                        <td align="center" (click)="navigateToChapter(data.storyId, data.chapterId)">{{ data.chapterNumber }} </td>
+                        <td align="center" (click)="navigateToChapter(data.storyId, data.chapterId)">{{ data.chapterName  }}</td>     
+                        <td align="center" (click)="navigateToChapter(data.storyId, data.chapterId)">{{ +data.price  }} usd</td>             
+                        <td align="center"(click)="navigateToChapter(data.storyId, data.chapterId)" >{{  data.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>       
+                      </tr>
+                    </tbody>
+                  </nz-table>
+            </nz-tab>
+
+        </nz-tabset>
+    </nz-card>
+</div>

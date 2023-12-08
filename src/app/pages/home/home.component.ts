@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { formatDistance } from 'date-fns'
 import { ApiService, CoreService, NotifyService } from '../../services'
 import { MatDialog } from '@angular/material/dialog'
 import { enumData } from '../../core/enumData'
@@ -19,6 +20,19 @@ export class HomeComponent implements OnInit {
   dataSearch: any = {}
   listOfData: any[] = []
   lstTopProduct: any[] = []
+
+  //
+  lstComment: any[] = []
+  pagComment: any = {
+    pageIndex: enumData.Page.pageIndex,
+    pageSize: enumData.Page.pageSize,
+    lstPageSize: enumData.Page.lstPageSize,
+    total: enumData.Page.total,
+    pageSizeMax: enumData.Page.pageSizeMax,
+  }
+  currentComment: string = ''
+  currentFeedback: string = ''
+  parentId: string = ''
 
   responsiveOptions: any[] = []
   constructor(
@@ -50,6 +64,7 @@ export class HomeComponent implements OnInit {
     ]
     this.loadSlideProduct()
     this.searchData()
+    this.loadComment()
   }
 
   loadSlideProduct() {
@@ -60,6 +75,7 @@ export class HomeComponent implements OnInit {
         this.notifyService.hideloading()
       })
   }
+
 
   navigateToStory(storyId: string) {
     this.router.navigate([`story/${storyId}`])
@@ -93,4 +109,48 @@ export class HomeComponent implements OnInit {
         return ''
     }
   }
+
+  //
+  loadComment(reset = false) {
+    if (reset) this.pagComment.pageIndex = 1
+    const dataSearch = {
+      where: { isDeleted: false },
+      skip: (this.pagComment.pageIndex - 1) * this.pagComment.pageSize,
+      take: this.pagComment.pageSize,
+    }
+    this.apiService.post(this.apiService.MESSAGE.PAGINATION, dataSearch).then((res: any) => {
+      this.lstComment = res[0]
+      this.pagComment = { ...this.pagComment, total: res[1] }
+    })
+  }
+
+  sendFeedbackComment() {
+    this.apiService
+      .post(this.apiService.MESSAGE.CREATE, { content: this.currentFeedback, parentId: this.parentId })
+      .then((res: any) => {
+        this.parentId = ''
+        this.currentFeedback = ''
+        this.loadComment()
+      })
+  }
+
+  formatDate(date: any) {
+    return formatDistance(new Date(date), new Date())
+  }
+
+  feedbackComment(commentId: string) {
+    this.parentId = commentId
+  }
+
+  cancelFeedbackComment() {
+    this.parentId = ''
+  }
+
+  sendComment() {
+    this.apiService.post(this.apiService.MESSAGE.CREATE, { content: this.currentComment }).then((res: any) => {
+      this.currentComment = ''
+      this.loadComment()
+    })
+  }
+
 }

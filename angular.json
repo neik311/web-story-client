@@ -90,7 +90,8 @@
           "options": {
             "browserTarget": "ape-survey-admin:build",
             "port": 3500,
-            "open": true
+            "open": true,
+            "host": "0.0.0.0"
           },
           "configurations": {
             "production": {

@@ -10,7 +10,7 @@
       <div nz-col [nzSpan]="8">
         <nz-form-item nzFlex>
           <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Tên truyện</nz-form-label>
-          <nz-form-control [nzSm]="22" [nzXs]="24" nzErrorTip="Vui lòng nhập tên truyện">
+          <nz-form-control [nzSm]="22" [nzXs]="24" [nzErrorTip]="NOT_YET_STORYNAME">
             <input nz-input placeholder="Nhập tên truyện" [(ngModel)]="dataObject.name" name="name" required />
           </nz-form-control>
         </nz-form-item>
@@ -45,7 +45,7 @@
       <div nz-col [nzSpan]="8">
         <nz-form-item nzFlex>
           <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Loại truyện</nz-form-label>
-          <nz-form-control [nzSm]="22" [nzXs]="24">
+          <nz-form-control [nzSm]="22" [nzXs]="24" [nzErrorTip]="NOT_YET_STORYTYPE">
             <nz-select
               required
               nzShowSearch
@@ -65,7 +65,7 @@
       <div nz-col [nzSpan]="8">
         <nz-form-item nzFlex>
           <nz-form-label [nzSm]="24" [nzXs]="24" class="text-left" nzRequired>Danh mục</nz-form-label>
-          <nz-form-control [nzSm]="22" [nzXs]="24" nzErrorTip="Vui lòng chọn danh mục">
+          <nz-form-control [nzSm]="22" [nzXs]="24" [nzErrorTip]="NOT_YET_CATEGORY">
             <nz-select
               required
               nzMode="multiple"
@@ -105,7 +105,7 @@
   <nz-row matDialogActions>
     <nz-col nzSpan="24" class="text-center">
       <button nzShape="round" nz-button nzType="default" (click)="closeDialog(0)" class="mr-2"><span nz-icon nzType="lock"></span>Đóng</button>
-      <button nzShape="round" nz-button [disabled]="!frmAdd.form.valid" nzType="primary" (click)="onSave()">
+      <button nzShape="round" nz-button [disabled]="!frmAdd.form.valid || !dataObject.avatar || dataObject.avatar?.length  === 0" nzType="primary" (click)="onSave()">
         <span nz-icon nzType="save"></span>Lưu
       </button>
     </nz-col>

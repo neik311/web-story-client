@@ -10,6 +10,7 @@ import { HistoryComponent } from './pages/history/history.component'
 import { RegisterComponent } from './pages/register/register.component'
 import { SearchStoryComponent } from './pages/searchStory/searchStory.component'
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component'
+import { PaypalComponent } from './pages/paypal/paypal.component'
 
 const routes: Routes = [
   // { path: '', pathMatch: 'full', redirectTo: '/welcome' },
@@ -48,6 +49,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'wallet',
+    component: PaypalComponent,
   },
   {
     path: 'search',

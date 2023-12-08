@@ -1,6 +1,6 @@
 <form nz-form #frmAdd="ngForm">
   <nz-row matDialogTitle>
-    <nz-col nzSpan="24" class="text-header mb-4">
+    <nz-col nzSpan="24" class="text-header text-center mb-4">
       {{ modalTitle | uppercase }}
     </nz-col>
   </nz-row>
@@ -28,7 +28,8 @@
 
   <nz-row matDialogActions>
     <nz-col nzSpan="24" class="text-center">
-      <button nzShape="round" nz-button nzType="default" (click)="closeDialog(0)" class="mr-2"><span nz-icon nzType="lock"></span>Đóng</button>
+      <button nzShape="round" nz-button nzType="default" (click)="closeDialog(0)" class="mr-2"><span nz-icon
+          nzType="lock"></span>Đóng</button>
       <button nzShape="round" nz-button [disabled]="!frmAdd.form.valid" nzType="primary" (click)="onSave()">
         <span nz-icon nzType="save"></span>Lưu
       </button>

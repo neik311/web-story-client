@@ -1,6 +1,6 @@
 export const enumData = {
   /** Kích thước tối đa tính bằng MB */
-  maxSizeUpload: 10,
+  maxSizeUpload: 5*1024*1024,
   Page: {
     pageIndex: 1,
     pageSize: 10,
@@ -47,4 +47,10 @@ export const enumData = {
     word: { code: 'word', name: 'Truyện chữ' },
     comic: { code: 'comic', name: 'Truyện tranh' },
   },
+
+    /** Loại nạp / rút */
+    WalletHistoryType: {
+      Deposit: { code: 'Deposit', name: 'Nạp tiền' },
+      Withdraw: { code: 'Withdraw', name: 'Rút tiền' },
+    },
 }

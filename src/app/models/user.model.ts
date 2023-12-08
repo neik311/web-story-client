@@ -7,4 +7,6 @@ export class User {
   avatar: string = ''
   roleCode: string = ''
   roleName: string = ''
+  amount: number = 0
+  lstChapter: string[] = []
 }

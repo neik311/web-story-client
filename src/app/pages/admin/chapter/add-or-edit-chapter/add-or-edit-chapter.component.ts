@@ -4,6 +4,7 @@ import { RichTextEditorComponent } from '@syncfusion/ej2-angular-richtexteditor'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { ApiService, NotifyService } from '../../../../services'
 import { enumData } from '../../../../core/enumData'
+import { ERR_FILE_IMAGE, ERR_FILE_UPLOAD } from 'src/app/core/constants'
 
 @Component({
   selector: 'app-add-or-edit-chapter',
@@ -85,6 +86,7 @@ export class AddOrEditChapterComponent implements OnInit, AfterViewInit {
       this.isCreate = false
       this.modalTitle = 'Chỉnh sửa chapter'
     }
+    this.dataObject.currency = 'USD' 
   }
 
   ngAfterViewInit() {
@@ -111,7 +113,9 @@ export class AddOrEditChapterComponent implements OnInit, AfterViewInit {
   }
 
   addData() {
-    this.apiService.post(this.apiService.CHAPTER.CREATE, this.dataObject).then((res: any) => {
+    const body = {...this.dataObject}
+    body.price = +body.price
+    this.apiService.post(this.apiService.CHAPTER.CREATE, body).then((res: any) => {
       if (res) {
         this.notifyService.showSuccess(enumData.Constants.Message_Create_Success)
         this.closeDialog(1)
@@ -120,7 +124,9 @@ export class AddOrEditChapterComponent implements OnInit, AfterViewInit {
   }
 
   updateData() {
-    this.apiService.post(this.apiService.CHAPTER.UPDATE, this.dataObject).then((res: any) => {
+    const body = {...this.dataObject}
+    body.price = +body.price
+    this.apiService.post(this.apiService.CHAPTER.UPDATE, body).then((res: any) => {
       if (res) {
         this.notifyService.showSuccess(enumData.Constants.Message_Update_Success)
         this.closeDialog(1)
@@ -133,15 +139,22 @@ export class AddOrEditChapterComponent implements OnInit, AfterViewInit {
   }
 
   onChangeFile(e: any) {
-    console.log(e.target.files)
     const files = e.target.files
-    this.lstImageFile = files
     if (files.length === 0) return
 
-    const mimeType = files[0].type
-    if (mimeType.match(/image\/*/) == null) {
-      return
+    for (let imageFle of files) {
+      const mimeType = imageFle.type
+      if (mimeType.match(/image\/*/) == null) {
+        this.notifyService.showError(ERR_FILE_IMAGE)
+        return
+      }
+      const sizeImage = +imageFle.size
+      if(sizeImage > enumData.maxSizeUpload){
+        this.notifyService.showError(ERR_FILE_UPLOAD)
+        return
+      }
     }
+    this.lstImageFile = files
     const lstImage: any[] = []
     for (let imageFle of files) {
       const reader = new FileReader()

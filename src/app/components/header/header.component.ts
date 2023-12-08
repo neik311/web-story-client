@@ -4,6 +4,7 @@ import { ApiService, AuthenticationService, NotifyService } from '../../services
 import { Router } from '@angular/router'
 import { enumData } from '../../core/enumData'
 import { FirebaseUpload } from '../../_helpers/firebaseUpload'
+import { ERR_FILE_IMAGE, ERR_FILE_UPLOAD } from '../../core/constants'
 
 @Component({
   selector: 'app-header',
@@ -27,7 +28,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     // console.log(window.location.href.includes('admin'))
     this.currentUser = this.authService.currentUserValue
-    console.log(this.currentUser)
+    // console.log(this.currentUser)
   }
 
   showModal(): void {
@@ -41,14 +42,20 @@ export class HeaderComponent implements OnInit {
   }
 
   onChangeFile(e: any) {
-    this.avatarImage = e.target.files[0]
     const files = e.target.files
     if (files.length === 0) return
 
     const mimeType = files[0].type
     if (mimeType.match(/image\/*/) == null) {
+      this.notifyService.showError(ERR_FILE_IMAGE)
       return
     }
+    const sizeImage = +files[0].size
+    if(sizeImage > enumData.maxSizeUpload){
+      this.notifyService.showError(ERR_FILE_UPLOAD)
+      return
+    }
+    this.avatarImage = e.target.files[0]
 
     const reader = new FileReader()
     reader.readAsDataURL(files[0])
@@ -79,6 +86,7 @@ export class HeaderComponent implements OnInit {
 
   handleLogout() {
     this.authService.logout()
+    this.router.navigate(['login'])
   }
 
   isAdmin(): boolean {

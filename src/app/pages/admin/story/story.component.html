@@ -84,7 +84,7 @@
           <td>{{ data.typeName }}</td>
           <td>{{ data.otherName }}</td>
           <td>{{ data.author }}</td>
-          <td>{{ data.content | slice : 0 : 130 }}{{ data.content.length > 130 ? '...' : '' }}</td>
+          <td>{{ data.content | slice : 0 : 130 }}{{ data.content?.length > 130 ? '...' : '' }}</td>
           <td>{{ data.lstCategoryName.join(', ') }}</td>
           <td>{{ data.favoriteCount | number }}</td>
           <td>{{ data.totalView | number }}</td>

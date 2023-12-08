@@ -14,6 +14,9 @@
     <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin() && getUsername()">
       <a [routerLink]="['history']">Lịch sử</a>
     </li>
+    <li nz-menu-item nzMatchRouter *ngIf="!isUrlAdmin() && getUsername()">
+      <a [routerLink]="['wallet']">Ví của bạn</a>
+    </li>
 
     <li nz-menu-item nzMatchRouter *ngIf="isAdmin() && !isUrlAdmin()">
       <a [routerLink]="['admin/category']">Quản lý</a>

@@ -54,6 +54,7 @@ import { UserComponent } from './user/user.component'
 import { ChapterDetailComponent } from './chapter/chapter-detail/chapter-detail.component'
 import { StoryDetailComponent } from './story/story-detail/story-detail.component'
 import { StoryPrintComponent } from './story/story-print/story-print.component'
+import { DirectivesModule } from '../../directives/directives.module'
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { StoryPrintComponent } from './story/story-print/story-print.component'
     StoryPrintComponent,
   ],
   imports: [
+    DirectivesModule,
     CommonModule,
     AdminRoutingModule,
     FormsModule,

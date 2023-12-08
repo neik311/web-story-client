@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { NgxPayPalModule } from 'ngx-paypal';
 import { MatTabsModule } from '@angular/material/tabs'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -60,6 +61,8 @@ import { RegisterComponent } from './pages/register/register.component'
 import { FirebaseUpload } from './_helpers/firebaseUpload'
 import { SearchStoryComponent } from './pages/searchStory/searchStory.component'
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component'
+import { PaypalComponent } from './pages/paypal/paypal.component'
+import { DirectivesModule } from './directives/directives.module'
 
 const antDesignIcons = AllIcons as { [key: string]: IconDefinition }
 const icons: IconDefinition[] = Object.keys(antDesignIcons).map((key: string) => antDesignIcons[key])
@@ -86,8 +89,10 @@ export class MaterialModule {}
     RegisterComponent,
     SearchStoryComponent,
     ForgotPasswordComponent,
+    PaypalComponent
   ],
   imports: [
+    DirectivesModule,
     BrowserModule,
     AppRoutingModule,
     NzLayoutModule,
@@ -123,6 +128,7 @@ export class MaterialModule {}
     NzCommentModule,
     NzModalModule,
     NzPopoverModule,
+    NgxPayPalModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: vi_VN },

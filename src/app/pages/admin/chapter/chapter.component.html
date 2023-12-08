@@ -29,6 +29,9 @@
         <tr>
           <th>Số chương</th>
           <th>Tên chương</th>
+          <th>Giá đọc (dollar)</th>
+          <th>Lượt mua</th>
+          <th>Thu nhập (dollar)</th>
           <th>Lượt xem</th>
           <th>Ngày tạo</th>
           <th>Trạng thái</th>
@@ -39,6 +42,9 @@
         <tr *ngFor="let data of ajaxTable.data">
           <td>{{ data.chapterNumber | number }}</td>
           <td>{{ data.name }}</td>
+          <td>{{ data.price | number }}</td>
+          <td>{{ data.chapterBuyerCount | number }}</td>
+          <td>{{ data.totalPrice | number }}</td>
           <td>{{ data.viewCount | number }}</td>
           <td>{{ data.createdAt | date : 'dd/MM/yyyy HH:mm' }}</td>
           <td class="text-center" nzRight>

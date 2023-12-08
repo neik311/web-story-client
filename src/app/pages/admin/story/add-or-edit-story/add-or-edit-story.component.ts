@@ -3,6 +3,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage'
 import { ApiService, CoreService, NotifyService } from '../../../../services'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { enumData } from '../../../../core/enumData'
+import {ERR_FILE_IMAGE, ERR_FILE_UPLOAD, NOT_YET_AVATAR, NOT_YET_CATEGORY, NOT_YET_STORYNAME,NOT_YET_STORYTYPE} from '../../../../core/constants'
 
 @Component({
   templateUrl: './add-or-edit-story.component.html',
@@ -22,6 +23,9 @@ export class AddOrEditStoryComponent implements OnInit {
   lstCategory: any[] = []
   lstStoryType: any[] = []
   modalTitle = 'Thêm mới truyện'
+  NOT_YET_STORYNAME = NOT_YET_STORYNAME
+  NOT_YET_STORYTYPE=NOT_YET_STORYTYPE
+  NOT_YET_CATEGORY=NOT_YET_CATEGORY
 
   constructor(
     private notifyService: NotifyService,
@@ -46,11 +50,11 @@ export class AddOrEditStoryComponent implements OnInit {
     this.notifyService.showloading()
     if (this.avatarImage) this.dataObject.avatar = await this.uploadImageToFirebase()
     if (!this.dataObject.avatar) {
-      this.notifyService.showError('Hãy chọn ảnh đại diện')
+      this.notifyService.showError(NOT_YET_AVATAR)
       return
     }
     if (!this.dataObject.lstCategoryId || this.dataObject.lstCategoryId.length === 0) {
-      this.notifyService.showError('Hãy chọn một danh mục')
+      this.notifyService.showError(NOT_YET_CATEGORY)
       return
     }
     // console.log(this.dataObject)
@@ -92,14 +96,21 @@ export class AddOrEditStoryComponent implements OnInit {
   }
 
   onChangeFile(e: any) {
-    this.avatarImage = e.target.files[0]
     const files = e.target.files
+    console.log(files)
     if (files.length === 0) return
 
     const mimeType = files[0].type
     if (mimeType.match(/image\/*/) == null) {
+      this.notifyService.showError(ERR_FILE_IMAGE)
       return
     }
+    const sizeImage = +files[0].size
+    if(sizeImage > enumData.maxSizeUpload){
+      this.notifyService.showError(ERR_FILE_UPLOAD)
+      return
+    }
+    this.avatarImage = e.target.files[0]
 
     const reader = new FileReader()
     reader.readAsDataURL(files[0])

@@ -36,6 +36,7 @@ export class ApiService {
     DELETE: `${environment.apiUrl}/story/update_active`,
     UPDATE: `${environment.apiUrl}/story/update_data`,
     PAGINATION: `${environment.apiUrl}/story/pagination`,
+    SELECT: `${environment.apiUrl}/story/select`,
   }
 
   CHAPTER = {
@@ -66,6 +67,20 @@ export class ApiService {
     DELETE: `${environment.apiUrl}/comment/update_active`,
     UPDATE: `${environment.apiUrl}/comment/update_data`,
     PAGINATION: `${environment.apiUrl}/comment/pagination`,
+  }
+
+  MESSAGE= {
+    CREATE: `${environment.apiUrl}/message/create_data`,
+    DELETE: `${environment.apiUrl}/message/update_active`,
+    UPDATE: `${environment.apiUrl}/message/update_data`,
+    PAGINATION: `${environment.apiUrl}/message/pagination`,
+  }
+
+  WALLET = {
+    CREATE_WALLET: `${environment.apiUrl}/wallet/create_wallet_history`,
+    BUY_CHAPTER: `${environment.apiUrl}/wallet/create_wallet_chapter`,
+    GET_LIST_HISTORY: `${environment.apiUrl}/wallet/get_wallet_history`,
+    GET_LIST_CHAPTER: `${environment.apiUrl}/wallet/get_wallet_chapter`,
   }
 
   //#endregion

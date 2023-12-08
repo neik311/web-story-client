@@ -64,23 +64,28 @@
             <span nz-icon nzType="group"></span>
             Danh sách chương
           </ng-template>
+          <button nzShape="round" class="mr-2" nz-button nzType="primary" [disabled]="setOfCheckedId.size === 0" (click)="showModal()">Mua </button>
           <nz-table #basicTable [nzData]="lstChapter" [nzFrontPagination]="false">
             <thead>
               <tr>
+                <th class="header-chapter" nzWidth="50px"></th>
                 <th class="header-chapter">Số chương</th>
                 <th class="header-chapter">Tên</th>
+                <th class="header-chapter">Giá đọc</th>
                 <th class="header-chapter">Ngày cập nhật</th>
                 <th class="header-chapter">Lượt xem</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let data of basicTable.data">
-                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)">{{ data.chapterNumber }}</td>
-                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)">{{ data.name }}</td>
-                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)">
+                <td class="column-check" [nzDisabled]="!isLogin || +data.price === 0 || setChapterBuyer.has(data.id)" [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)" [style]="{backgroundColor: setChapterBuyer.has(data.id) ? '#d7fcf8' : 'white'}"></td>
+                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)" [style]="{backgroundColor: setChapterBuyer.has(data.id) ? '#d7fcf8' : 'white'}">{{ data.chapterNumber }}</td>
+                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)" [style]="{backgroundColor: setChapterBuyer.has(data.id) ? '#d7fcf8' : 'white'}">{{ data.name }}</td>
+                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)" [style]="{backgroundColor: setChapterBuyer.has(data.id) ? '#d7fcf8' : 'white'}">{{ +data.price !== 0 ? (+data.price |number) : 'Miễn phí' }}</td>
+                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)" [style]="{backgroundColor: setChapterBuyer.has(data.id) ? '#d7fcf8' : 'white'}">
                   {{ (data.updatedAt ? data.updatedAt : data.createdAt) | date : 'dd/MM/yyyy HH:mm' }}
                 </td>
-                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)">{{ data.viewCount }}</td>
+                <td align="center" style="cursor: pointer" (click)="navigateToChapter(data.id)" [style]="{backgroundColor: setChapterBuyer.has(data.id) ? '#d7fcf8' : 'white'}">{{ data.viewCount }}</td>
               </tr>
             </tbody>
           </nz-table>
@@ -171,3 +176,10 @@
     </div>
   </nz-card>
 </div>
+
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Xác nhận" (nzOnCancel)="handleCancel()" (nzOnOk)="confirmBuyChapter()">
+  <ng-container *nzModalContent>
+    <p>Bạn có chắc muốn mua {{setOfCheckedId.size}} chương với giá {{totalPrice}} usd không ?</p>
+  </ng-container>
+</nz-modal>

@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs'
 import { catchError } from 'rxjs/operators'
 import { AuthenticationService, NotifyService } from '../services'
 import { environment } from '../../environments/environment'
+import { INTERNAL_SERVER_ERROR,ERR_AUTH } from '../core/constants'
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -20,13 +21,13 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (err.status === 401) {
           if (err.error.message === 'Unauthorized' || err.statusText === 'Unauthorized') {
             this.authenticationService.logout()
-            this.notifyService.showWarning('Bạn hiện chưa đăng nhập, vui lòng đăng nhập để tiếp tục')
+            this.notifyService.showWarning(ERR_AUTH)
             return throwError(() => new Error(error))
           }
         }
 
         if (err.name == 'HttpErrorResponse' && err.statusText == 'Unknown Error') {
-          err.statusText = 'Server đang update hoặc mất kết nối, vui lòng thử lại sau.'
+          err.statusText = INTERNAL_SERVER_ERROR
         }
         const error = err.error.message || err.statusText
         this.notifyService.showError(error)

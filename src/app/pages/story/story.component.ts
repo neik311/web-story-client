@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { formatDistance } from 'date-fns'
 import { ActivatedRoute } from '@angular/router'
+import { User } from '../../models/user.model'
 import { ApiService, AuthenticationService, CoreService, NotifyService } from '../../services'
 import { enumData } from '../../core/enumData'
+import { timeStamp } from 'console'
+import { ACTION_BUY_CHAPTER_SUCCESS } from '../../core/constants'
 
 @Component({
   selector: 'app-story',
@@ -26,11 +29,22 @@ export class StoryComponent implements OnInit {
   currentFeedback: string = ''
   parentId: string = ''
   isFavorite: boolean = false
+  setOfCheckedId = new Set<any>()
+  setChapterBuyer = new Set<any>()
+  currentUser: User | undefined
+  isLogin: boolean = false
+  isVisible = false;
+  totalPrice: number = 0
 
-  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthenticationService, private apiService: ApiService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthenticationService, private apiService: ApiService,private notifyService: NotifyService) {}
 
   ngOnInit() {
     this.storyId = this.route.snapshot.paramMap.get('id') || ''
+    this.currentUser = this.authService.currentUserValue
+    if (this.currentUser) {
+      this.isLogin = true
+      this.setChapterBuyer = new Set(this.currentUser.lstChapter)
+    }
     this.loadDataStory()
     this.loadChapter()
     this.loadComment()
@@ -43,6 +57,14 @@ export class StoryComponent implements OnInit {
       // console.log(res)
       // this.notifyService.hideloading()
     })
+  }
+
+  onItemChecked(id: string, checked: boolean): void {
+    if (checked) {
+      this.setOfCheckedId.add(id)
+    } else {
+      this.setOfCheckedId.delete(id)
+    }
   }
 
   loadChapter() {
@@ -108,4 +130,37 @@ export class StoryComponent implements OnInit {
         this.loadComment()
       })
   }
+
+  showModal(): void {
+    this.isVisible = true;
+    for(let chapter of this.lstChapter){
+      if(this.setOfCheckedId.has(chapter.id)){
+        this.totalPrice += +chapter.price
+      }
+    }
+    this.totalPrice = +this.totalPrice.toFixed(4)
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  confirmBuyChapter(){  
+    this.notifyService.showloading()
+    let lstChapterId = Array.from(this.setOfCheckedId)
+    const lstChapter = lstChapterId.map((chapterId)=> ({chapterId: chapterId}))
+    this.apiService.post(this.apiService.WALLET.BUY_CHAPTER, lstChapter).then((res: any)=>{
+     if(this.currentUser) {
+      this.currentUser.amount = +this.currentUser.amount - +res.totalPrice
+      this.currentUser.lstChapter = [...this.currentUser.lstChapter,...lstChapterId]
+      this.setChapterBuyer = new Set(this.currentUser.lstChapter)
+      this.notifyService.hideloading()
+      this.isVisible = false;
+      this.notifyService.showSuccess(ACTION_BUY_CHAPTER_SUCCESS)
+      this.setOfCheckedId.clear()
+      this.authService.login(this.currentUser)
+     }
+    })
+  }
+
 }
